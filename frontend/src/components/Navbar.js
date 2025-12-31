@@ -1,7 +1,9 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
+import axios from 'axios';
+import NotificationCenter from './NotificationCenter';
 import './Navbar.css';
 
 const Navbar = () => {
@@ -10,6 +12,32 @@ const Navbar = () => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [showSearch, setShowSearch] = useState(false);
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [notificationCount, setNotificationCount] = useState(0);
+
+  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      fetchNotificationCount();
+      const interval = setInterval(fetchNotificationCount, 60000); // Update every minute
+      return () => clearInterval(interval);
+    }
+  }, [isAuthenticated]);
+
+  const fetchNotificationCount = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.get(`${API_URL}/api/notifications/unread-count`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      setNotificationCount(response.data.count);
+    } catch (error) {
+      console.error('Error fetching notification count:', error);
+    }
+  };
 
   const handleLogout = () => {
     logout();
@@ -88,6 +116,19 @@ const Navbar = () => {
               </Link>
             )}
 
+            {isAuthenticated && (
+              <button
+                onClick={() => setShowNotifications(true)}
+                className="notification-toggle"
+                title="الإشعارات"
+              >
+                🔔
+                {notificationCount > 0 && (
+                  <span className="notification-count">{notificationCount}</span>
+                )}
+              </button>
+            )}
+
             <button onClick={toggleTheme} className="theme-toggle" aria-label="تبديل الوضع" title={isDark ? 'الوضع النهاري' : 'الوضع الليلي'}>
               {isDark ? '☀️' : '🌙'}
             </button>
@@ -116,6 +157,14 @@ const Navbar = () => {
           </div>
         </div>
       </div>
+
+      <NotificationCenter
+        isOpen={showNotifications}
+        onClose={() => {
+          setShowNotifications(false);
+          fetchNotificationCount();
+        }}
+      />
     </nav>
   );
 };
