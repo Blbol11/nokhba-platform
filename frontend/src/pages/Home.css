@@ -153,9 +153,9 @@
 }
 
 .stat-label {
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--text-normal);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-color);
   opacity: 1;
   text-shadow: none;
 }
@@ -527,7 +527,8 @@
   }
 
   .stat-label {
-    font-size: 1rem;
+    font-size: 1.05rem;
+    font-weight: 700;
   }
 
   .section-title {
