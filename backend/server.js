@@ -9,8 +9,36 @@ dotenv.config();
 
 const app = express();
 
-// Middleware
-app.use(cors());
+// إعداد CORS
+const corsOptions = {
+  origin: function (origin, callback) {
+    // السماح بالطلبات بدون origin (مثل mobile apps أو curl)
+    if (!origin) return callback(null, true);
+
+    const allowedOrigins = [
+      'http://localhost:3000',
+      'http://localhost:5000',
+      process.env.FRONTEND_URL,
+      // أضف domain Cloudflare Pages هنا بعد النشر
+      // 'https://nokhba-platform.pages.dev',
+      // 'https://your-custom-domain.com'
+    ].filter(Boolean);
+
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      // في Development، اسمح بكل الطلبات
+      if (process.env.NODE_ENV === 'development') {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    }
+  },
+  credentials: true
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -33,6 +61,15 @@ app.get('/', (req, res) => {
     message: 'مرحباً بك في منصة نخبة',
     version: '1.0.0',
     status: 'running'
+  });
+});
+
+// Health check endpoint
+app.get('/api/health', (req, res) => {
+  res.json({
+    status: 'ok',
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime()
   });
 });
 
