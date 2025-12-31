@@ -1,0 +1,18 @@
+# robots.txt for Nokhba Platform
+
+User-agent: *
+Allow: /
+Allow: /files
+Allow: /excellence
+Allow: /login
+Allow: /register
+
+Disallow: /admin
+Disallow: /profile
+Disallow: /api/
+
+# Sitemap
+Sitemap: https://nokhba-platform.pages.dev/sitemap.xml
+
+# Crawl-delay
+Crawl-delay: 1

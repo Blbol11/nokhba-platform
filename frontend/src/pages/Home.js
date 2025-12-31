@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import axios from 'axios';
+import SEO from '../components/SEO';
 import './Home.css';
 
 const Home = () => {
@@ -56,6 +57,13 @@ const Home = () => {
 
   return (
     <div className="home-page">
+      <SEO
+        title="نُخبة - منصة التميز الأكاديمي"
+        description="منصة تعليمية متكاملة تجمع بين التعليم والإثراء المعرفي لتمكين الطلاب والطالبات من التفوق الأكاديمي المستمر. دورات، ملفات دراسية، دعم بحثي ومحتوى إثرائي."
+        keywords="نخبة، التميز الأكاديمي، جامعة الملك سعود، تعليم، دورات، ملفات دراسية، محتوى إثرائي، دعم بحثي، KSU، Nokhba"
+        url="https://nokhba-platform.pages.dev"
+      />
+
       {/* Hero Section */}
       <section className="hero">
         <div className="hero-shapes">
