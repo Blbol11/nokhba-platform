@@ -13,7 +13,7 @@
   text-align: center;
   margin-bottom: 4rem;
   padding: 3rem 0;
-  background: linear-gradient(135deg, #0B3C5D 0%, #00A6CE 100%);
+  background: var(--gradient-secondary);
   color: white;
   border-radius: 20px;
   position: relative;
@@ -32,7 +32,7 @@
 
 .back-link {
   display: inline-block;
-  color: #00A6CE;
+  color: var(--primary-color);
   text-decoration: none;
   margin-bottom: 1.5rem;
   font-weight: 600;
@@ -76,7 +76,7 @@
 .section-title {
   font-size: 2.2rem;
   font-weight: 800;
-  color: #0B3C5D;
+  color: var(--secondary-color);
   text-align: center;
   margin-bottom: 1rem;
   position: relative;
@@ -91,7 +91,7 @@
   transform: translateX(-50%);
   width: 80px;
   height: 4px;
-  background: linear-gradient(90deg, #0B3C5D 0%, #00A6CE 100%);
+  background: linear-gradient(90deg, var(--secondary-color) 0%, var(--primary-color) 100%);
   border-radius: 2px;
 }
 
@@ -127,7 +127,7 @@
   left: 0;
   width: 100%;
   height: 5px;
-  background: linear-gradient(90deg, #0B3C5D 0%, #00A6CE 100%);
+  background: linear-gradient(90deg, var(--secondary-color) 0%, var(--primary-color) 100%);
   transform: scaleX(0);
   transition: transform 0.4s ease;
   transform-origin: left;
@@ -140,7 +140,7 @@
 .service-card:hover {
   transform: translateY(-12px);
   box-shadow: 0 12px 40px rgba(0, 61, 92, 0.15);
-  border-color: #0B3C5D;
+  border-color: var(--secondary-color);
 }
 
 .service-icon {
@@ -152,7 +152,7 @@
 }
 
 .service-card h3 {
-  color: #0B3C5D;
+  color: var(--secondary-color);
   margin-bottom: 1.2rem;
   font-size: 1.4rem;
   font-weight: 700;
@@ -190,9 +190,9 @@
   content: '✓';
   position: absolute;
   right: 0;
-  color: #00A6CE;
+  color: var(--primary-color);
   font-weight: bold;
-  background: #0B3C5D;
+  background: var(--secondary-color);
   width: 22px;
   height: 22px;
   border-radius: 50%;
@@ -219,7 +219,7 @@
   padding: 1.5rem 2rem;
   border-radius: 16px;
   text-align: center;
-  color: #0B3C5D;
+  color: var(--secondary-color);
   font-weight: 700;
   font-size: 1.1rem;
   box-shadow: 0 2px 12px rgba(0, 61, 92, 0.08);
@@ -228,11 +228,11 @@
 }
 
 .field-tag:hover {
-  background: linear-gradient(135deg, #0B3C5D 0%, #00A6CE 100%);
-  color: #00A6CE;
+  background: var(--gradient-secondary);
+  color: var(--primary-color);
   transform: translateY(-5px);
   box-shadow: 0 8px 24px rgba(0, 61, 92, 0.2);
-  border-color: #0B3C5D;
+  border-color: var(--secondary-color);
 }
 
 /* Forms */
@@ -253,7 +253,7 @@
 .form-group label {
   display: block;
   margin-bottom: 0.75rem;
-  color: #0B3C5D;
+  color: var(--secondary-color);
   font-weight: 700;
   font-size: 1.05rem;
 }
@@ -276,7 +276,7 @@
 .form-group textarea:focus,
 .form-group select:focus {
   outline: none;
-  border-color: #0B3C5D;
+  border-color: var(--secondary-color);
   background: white;
   box-shadow: 0 0 0 3px rgba(0, 61, 92, 0.1);
 }
@@ -287,7 +287,7 @@
 }
 
 .btn-submit {
-  background: linear-gradient(135deg, #0B3C5D 0%, #00A6CE 100%);
+  background: var(--gradient-secondary);
   color: white;
   padding: 1.2rem 3rem;
   font-size: 1.15rem;
@@ -303,7 +303,7 @@
 .btn-submit:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 25px rgba(0, 61, 92, 0.4);
-  background: linear-gradient(135deg, #00A6CE 0%, #0B3C5D 100%);
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
 }
 
 /* Success Stories */
@@ -333,13 +333,13 @@
   top: -10px;
   right: 20px;
   font-size: 5rem;
-  color: #00A6CE;
+  color: var(--primary-color);
   font-family: Georgia, serif;
   opacity: 0.3;
 }
 
 .story-card h3 {
-  color: #0B3C5D;
+  color: var(--secondary-color);
   margin-bottom: 1rem;
   font-size: 1.3rem;
   font-weight: 700;
@@ -353,10 +353,10 @@
 }
 
 .story-author {
-  color: #00A6CE;
+  color: var(--primary-color);
   font-weight: 700;
   font-size: 1.05rem;
-  background: #0B3C5D;
+  background: var(--secondary-color);
   padding: 0.5rem 1rem;
   border-radius: 8px;
   display: inline-block;
@@ -383,7 +383,7 @@
 
 .contact-method:hover {
   transform: translateY(-5px);
-  border-color: #00A6CE;
+  border-color: var(--primary-color);
   box-shadow: 0 8px 24px rgba(0, 61, 92, 0.15);
 }
 
@@ -395,7 +395,7 @@
 }
 
 .contact-method h3 {
-  color: #0B3C5D;
+  color: var(--secondary-color);
   margin-bottom: 0.75rem;
   font-size: 1.2rem;
   font-weight: 700;
@@ -428,12 +428,12 @@
 }
 
 .faq-item:hover {
-  border-color: #0B3C5D;
+  border-color: var(--secondary-color);
   box-shadow: 0 4px 20px rgba(0, 61, 92, 0.12);
 }
 
 .faq-question {
-  color: #0B3C5D;
+  color: var(--secondary-color);
   font-weight: 700;
   font-size: 1.2rem;
   margin-bottom: 1rem;
@@ -474,7 +474,7 @@
 }
 
 .hours-table td:first-child {
-  color: #0B3C5D;
+  color: var(--secondary-color);
   font-weight: 700;
   border-radius: 12px 0 0 12px;
 }
@@ -510,7 +510,7 @@
   left: 0;
   width: 100%;
   height: 5px;
-  background: linear-gradient(90deg, #0B3C5D 0%, #00A6CE 100%);
+  background: linear-gradient(90deg, var(--secondary-color) 0%, var(--primary-color) 100%);
   transform: scaleX(0);
   transition: transform 0.4s ease;
   transform-origin: left;
@@ -523,7 +523,7 @@
 .material-card:hover {
   transform: translateY(-12px);
   box-shadow: 0 12px 40px rgba(0, 61, 92, 0.15);
-  border-color: #0B3C5D;
+  border-color: var(--secondary-color);
 }
 
 .material-type {
@@ -537,7 +537,7 @@
 }
 
 .material-type.video {
-  background: linear-gradient(135deg, #0B3C5D 0%, #00A6CE 100%);
+  background: var(--gradient-secondary);
   color: white;
 }
 
@@ -552,7 +552,7 @@
 }
 
 .material-card h3 {
-  color: #0B3C5D;
+  color: var(--secondary-color);
   font-size: 1.4rem;
   margin-bottom: 1rem;
   font-weight: 700;
@@ -582,7 +582,7 @@
 .material-card .btn {
   width: 100%;
   padding: 1rem;
-  background: linear-gradient(135deg, #0B3C5D 0%, #00A6CE 100%);
+  background: var(--gradient-secondary);
   color: white;
   border: none;
   border-radius: 12px;
@@ -619,14 +619,14 @@
 }
 
 .filter-btn:hover {
-  border-color: #0B3C5D;
-  color: #0B3C5D;
+  border-color: var(--secondary-color);
+  color: var(--secondary-color);
 }
 
 .filter-btn.active {
-  background: linear-gradient(135deg, #0B3C5D 0%, #00A6CE 100%);
+  background: var(--gradient-secondary);
   color: white;
-  border-color: #0B3C5D;
+  border-color: var(--secondary-color);
   box-shadow: 0 4px 15px rgba(0, 61, 92, 0.25);
 }
 

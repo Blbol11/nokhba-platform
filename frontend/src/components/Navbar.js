@@ -16,40 +16,68 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
-      <div className="container">
+      <div className="container navbar-container">
         <div className="navbar-content">
           <Link to="/" className="navbar-brand">
-            <h1>نخبة</h1>
+            <div className="brand-logo">
+              <svg viewBox="0 0 50 50" className="logo-icon">
+                <path d="M25 5 L45 15 L45 35 L25 45 L5 35 L5 15 Z" fill="currentColor" opacity="0.2"/>
+                <path d="M25 10 L40 18 L40 32 L25 40 L10 32 L10 18 Z" fill="none" stroke="currentColor" strokeWidth="2"/>
+                <circle cx="25" cy="25" r="8" fill="currentColor"/>
+              </svg>
+              <div className="brand-text">
+                <h1>نُخبة</h1>
+                <span className="brand-subtitle">منصة التميز الأكاديمي</span>
+              </div>
+            </div>
           </Link>
 
-          <div className="navbar-links">
-            <Link to="/" className="nav-link">الرئيسية</Link>
-            <Link to="/files" className="nav-link">الملفات</Link>
-            <Link to="/excellence" className="nav-link nav-link-excellence">مبادرة التفوق المستمر</Link>
+          <div className="navbar-center">
+            <Link to="/" className="nav-link">
+              <span className="nav-icon">🏠</span>
+              <span>الرئيسية</span>
+            </Link>
+            <Link to="/files" className="nav-link">
+              <span className="nav-icon">📚</span>
+              <span>الملفات</span>
+            </Link>
+            <Link to="/excellence" className="nav-link nav-link-special">
+              <span className="nav-icon">⭐</span>
+              <span>التفوق المستمر</span>
+            </Link>
+          </div>
+
+          <div className="navbar-end">
             {isAuthenticated && user?.role === 'admin' && (
-              <Link to="/admin" className="nav-link admin-link">لوحة التحكم</Link>
+              <Link to="/admin" className="nav-link admin-badge">
+                <span className="nav-icon">⚙️</span>
+                <span>لوحة التحكم</span>
+              </Link>
             )}
 
-            <button onClick={toggleTheme} className="theme-toggle" aria-label="تبديل الوضع">
+            <button onClick={toggleTheme} className="theme-toggle" aria-label="تبديل الوضع" title={isDark ? 'الوضع النهاري' : 'الوضع الليلي'}>
               {isDark ? '☀️' : '🌙'}
             </button>
 
             {isAuthenticated ? (
-              <>
-                <div className="user-menu">
-                  <Link to="/profile" className="profile-btn" title="الملف الشخصي">
-                    <span className="profile-icon">{user?.name?.charAt(0)?.toUpperCase()}</span>
-                  </Link>
-                  <span className="user-name">مرحباً، {user?.name}</span>
-                  <button onClick={handleLogout} className="btn btn-secondary">
-                    تسجيل الخروج
-                  </button>
+              <div className="user-menu">
+                <Link to="/profile" className="user-avatar" title="الملف الشخصي">
+                  <span className="avatar-text">{user?.name?.charAt(0)?.toUpperCase()}</span>
+                  <span className="avatar-status"></span>
+                </Link>
+                <div className="user-info">
+                  <span className="user-greeting">مرحباً</span>
+                  <span className="user-name">{user?.name}</span>
                 </div>
-              </>
+                <button onClick={handleLogout} className="btn btn-logout" title="تسجيل الخروج">
+                  <span>خروج</span>
+                  <span className="logout-icon">→</span>
+                </button>
+              </div>
             ) : (
-              <div className="auth-links">
-                <Link to="/login" className="btn btn-primary">تسجيل الدخول</Link>
-                <Link to="/register" className="btn btn-secondary">إنشاء حساب</Link>
+              <div className="auth-buttons">
+                <Link to="/login" className="btn btn-outline">تسجيل الدخول</Link>
+                <Link to="/register" className="btn btn-primary">إنشاء حساب</Link>
               </div>
             )}
           </div>

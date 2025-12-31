@@ -4,7 +4,7 @@
 }
 
 .hero {
-  background: linear-gradient(135deg, #1e88e5 0%, #1565c0 100%);
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
   color: white;
   padding: 6rem 0;
   text-align: center;
@@ -94,20 +94,20 @@
 
 .feature-card:hover {
   box-shadow: 0 8px 24px rgba(7, 121, 191, 0.15);
-  border-color: #1e88e5;
+  border-color: var(--primary-color);
   transform: translateY(-4px);
 }
 
 .feature-icon {
   font-size: 3.5rem;
   margin-bottom: 1.5rem;
-  color: #1e88e5;
+  color: var(--primary-color);
   filter: none;
   opacity: 1;
 }
 
 .feature-card h3 {
-  color: #1565c0;
+  color: var(--secondary-color);
   margin-bottom: 1rem;
   font-size: 1.5rem;
   font-weight: 700;
@@ -127,18 +127,18 @@
 }
 
 .category-card {
-  background: #1565c0;
+  background: var(--secondary-color);
   color: white;
   padding: 2rem;
   border-radius: 8px;
   text-align: center;
   cursor: pointer;
-  border: 2px solid #1565c0;
+  border: 2px solid var(--secondary-color);
 }
 
 .category-card:hover {
-  background: #1e88e5;
-  border-color: #1e88e5;
+  background: var(--primary-color);
+  border-color: var(--primary-color);
 }
 
 .category-card h3 {
@@ -152,7 +152,7 @@
 }
 
 .cta {
-  background: #1565c0;
+  background: var(--secondary-color);
   color: white;
 }
 
@@ -181,7 +181,7 @@ body.dark-mode .home-page {
 }
 
 body.dark-mode .hero {
-  background: #1e88e5;
+  background: var(--primary-color);
 }
 
 body.dark-mode .section-title {
@@ -194,7 +194,7 @@ body.dark-mode .feature-card {
 }
 
 body.dark-mode .feature-card:hover {
-  border-color: #1e88e5;
+  border-color: var(--primary-color);
 }
 
 body.dark-mode .feature-card h3 {
@@ -206,17 +206,17 @@ body.dark-mode .feature-card p {
 }
 
 body.dark-mode .category-card {
-  background: #1565c0;
-  border-color: #1565c0;
+  background: var(--secondary-color);
+  border-color: var(--secondary-color);
 }
 
 body.dark-mode .category-card:hover {
-  background: #1e88e5;
-  border-color: #1e88e5;
+  background: var(--primary-color);
+  border-color: var(--primary-color);
 }
 
 body.dark-mode .cta {
-  background: #1565c0;
+  background: var(--secondary-color);
 }
 
 @media (max-width: 768px) {

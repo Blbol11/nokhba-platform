@@ -1,26 +1,43 @@
 @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap');
 
 :root {
-  /* نظام ألوان محسّن وجذاب */
-  --header-color: #1e88e5;      /* أزرق حيوي */
-  --sidebar-color: #1565c0;     /* أزرق داكن غني */
-  --content-bg: #fafbfc;        /* خلفية رمادي فاتح جداً */
-  --card-bg: #ffffff;           /* أبيض نقي */
-  --primary-text: #2c3e50;      /* نص رمادي داكن */
-  --secondary-text: #546e7a;    /* نص رمادي أزرق */
-  --accent-color: #42a5f5;      /* أزرق فاتح للتمييز */
+  /* نظام الألوان الموحد - منصة نخبة - KSU Blue */
+  --primary-color: #008DC3;         /* اللون الأساسي - KSU Blue */
+  --primary-dark: #006A93;          /* أزرق داكن للـ hover */
+  --primary-light: #33A5D2;         /* أزرق فاتح للتمييز */
+  --secondary-color: #005879;       /* اللون الثانوي - أزرق عميق */
 
-  /* ألوان إضافية للتوافق */
-  --primary-color: #1e88e5;
-  --secondary-color: #1565c0;
-  --bg-color: #fafbfc;
-  --text-color: #2c3e50;
-  --dark-color: #2c3e50;
-  --light-color: #fafbfc;
-  --border-color: #e3f2fd;
-  --success-color: #66bb6a;
-  --danger-color: #ef5350;
-  --warning-color: #ffa726;
+  /* ألوان الخلفيات */
+  --content-bg: #F8FAFB;            /* خلفية رمادي فاتح جداً */
+  --card-bg: #FFFFFF;               /* أبيض نقي للكروت */
+  --bg-color: #F8FAFB;
+  --light-color: #F8FAFB;
+
+  /* ألوان النصوص */
+  --primary-text: #1A202C;          /* نص رمادي داكن */
+  --secondary-text: #4A5568;        /* نص رمادي متوسط */
+  --text-color: #1A202C;
+  --dark-color: #1A202C;
+
+  /* ألوان الحدود */
+  --border-color: #E2E8F0;          /* حدود رمادي فاتح */
+  --border-light: #F7FAFC;
+
+  /* ألوان الحالات */
+  --success-color: #10B981;         /* أخضر للنجاح */
+  --danger-color: #EF4444;          /* أحمر للخطر */
+  --warning-color: #F59E0B;         /* برتقالي للتحذير */
+  --info-color: #008DC3;            /* أزرق للمعلومات */
+
+  /* للتوافق مع الكود القديم */
+  --header-color: #008DC3;
+  --sidebar-color: #005879;
+  --accent-color: #33A5D2;
+
+  /* تدرجات موحدة */
+  --gradient-primary: linear-gradient(135deg, #008DC3 0%, #006A93 100%);
+  --gradient-secondary: linear-gradient(135deg, #005879 0%, #003D52 100%);
+  --gradient-light: linear-gradient(135deg, #33A5D2 0%, #008DC3 100%);
 }
 
 * {
@@ -211,20 +228,37 @@ a {
 
 /* Dark Mode */
 body.dark-mode {
-  --header-color: #0779bf;
-  --sidebar-color: #055a8c;
-  --content-bg: #1a1a1a;
-  --card-bg: #2d2d2d;
-  --primary-text: #f0f0f0;
-  --secondary-text: #b0b0b0;
+  /* ألوان أساسية في الوضع الليلي */
+  --primary-color: #33A5D2;         /* أزرق فاتح للوضع الليلي */
+  --primary-dark: #008DC3;
+  --primary-light: #5BC0DE;
+  --secondary-color: #006A93;
 
-  --primary-color: #0779bf;
-  --secondary-color: #055a8c;
+  /* خلفيات الوضع الليلي */
+  --content-bg: #1A1A1A;
+  --card-bg: #2D2D2D;
   --bg-color: #121212;
-  --text-color: #f0f0f0;
-  --dark-color: #f0f0f0;
-  --light-color: #2d2d2d;
+  --light-color: #2D2D2D;
+
+  /* نصوص الوضع الليلي */
+  --primary-text: #F0F0F0;
+  --secondary-text: #B0B0B0;
+  --text-color: #F0F0F0;
+  --dark-color: #F0F0F0;
+
+  /* حدود الوضع الليلي */
   --border-color: #404040;
+  --border-light: #333333;
+
+  /* للتوافق */
+  --header-color: #33A5D2;
+  --sidebar-color: #006A93;
+  --accent-color: #5BC0DE;
+
+  /* تدرجات الوضع الليلي */
+  --gradient-primary: linear-gradient(135deg, #33A5D2 0%, #008DC3 100%);
+  --gradient-secondary: linear-gradient(135deg, #006A93 0%, #004D6B 100%);
+  --gradient-light: linear-gradient(135deg, #5BC0DE 0%, #33A5D2 100%);
 }
 
 body.dark-mode {

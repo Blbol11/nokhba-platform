@@ -5,7 +5,7 @@
 
 /* Hero Section */
 .excellence-hero {
-  background: #1e88e5;
+  background: var(--primary-color);
   color: white;
   padding: 5rem 0;
   text-align: center;
@@ -39,7 +39,7 @@
 .excellence-meta {
   margin-top: 3rem;
   padding: 2rem;
-  background: #1565c0;
+  background: var(--secondary-color);
   border-radius: 8px;
   border: none;
 }
@@ -77,26 +77,26 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
   text-decoration: none;
-  color: #1565c0;
+  color: var(--secondary-color);
   border: 2px solid #e8f4f8;
 }
 
 .excellence-card:hover {
   box-shadow: 0 8px 24px rgba(7, 121, 191, 0.15);
-  border-color: #1e88e5;
+  border-color: var(--primary-color);
   transform: translateY(-4px);
 }
 
 .card-icon {
   font-size: 4rem;
   margin-bottom: 1.5rem;
-  color: #1e88e5;
+  color: var(--primary-color);
   filter: none;
   opacity: 1;
 }
 
 .excellence-card h3 {
-  color: #1565c0;
+  color: var(--secondary-color);
   font-size: 1.6rem;
   margin-bottom: 1.2rem;
   font-weight: 700;
@@ -138,7 +138,7 @@
   right: 0;
   color: #ffffff;
   font-weight: bold;
-  background: #1e88e5;
+  background: var(--primary-color);
   width: 28px;
   height: 28px;
   border-radius: 50%;
@@ -154,7 +154,7 @@
   bottom: 2rem;
   left: 2rem;
   font-size: 1.5rem;
-  color: #1565c0;
+  color: var(--secondary-color);
   font-weight: normal;
 }
 
@@ -167,7 +167,7 @@
 .section-title {
   font-size: 2.5rem;
   font-weight: 800;
-  color: #1565c0;
+  color: var(--secondary-color);
   text-align: center;
   margin-bottom: 1rem;
   position: relative;
@@ -182,7 +182,7 @@
   transform: translateX(-50%);
   width: 80px;
   height: 3px;
-  background: #1e88e5;
+  background: var(--primary-color);
 }
 
 .features-grid {
@@ -201,7 +201,7 @@
 }
 
 .feature-box:hover {
-  border-color: #1e88e5;
+  border-color: var(--primary-color);
 }
 
 .feature-icon {
@@ -213,7 +213,7 @@
 }
 
 .feature-box h3 {
-  color: #1565c0;
+  color: var(--secondary-color);
   margin-bottom: 1.2rem;
   font-size: 1.35rem;
   font-weight: 700;
@@ -229,7 +229,7 @@
 /* Vision Section */
 .excellence-vision {
   padding: 4rem 0;
-  background: #1565c0;
+  background: var(--secondary-color);
   color: white;
   text-align: center;
 }
@@ -264,7 +264,7 @@
 .excellence-cta h2 {
   font-size: 2.8rem;
   margin-bottom: 1.5rem;
-  color: #1565c0;
+  color: var(--secondary-color);
   font-weight: 800;
   letter-spacing: -0.5px;
 }
@@ -294,22 +294,22 @@
 }
 
 .cta-buttons .btn-primary {
-  background: #1e88e5;
+  background: var(--primary-color);
   color: white;
 }
 
 .cta-buttons .btn-primary:hover {
-  background: #1565c0;
+  background: var(--secondary-color);
 }
 
 .cta-buttons .btn-secondary {
   background: white;
-  color: #1565c0;
-  border-color: #1565c0;
+  color: var(--secondary-color);
+  border-color: var(--secondary-color);
 }
 
 .cta-buttons .btn-secondary:hover {
-  background: #1565c0;
+  background: var(--secondary-color);
   color: white;
 }
 
@@ -356,11 +356,11 @@ body.dark-mode .excellence-page {
 }
 
 body.dark-mode .excellence-hero {
-  background: #1e88e5;
+  background: var(--primary-color);
 }
 
 body.dark-mode .excellence-meta {
-  background: #1565c0;
+  background: var(--secondary-color);
 }
 
 body.dark-mode .excellence-sections {
@@ -411,7 +411,7 @@ body.dark-mode .feature-box p {
 }
 
 body.dark-mode .excellence-vision {
-  background: #1565c0;
+  background: var(--secondary-color);
 }
 
 body.dark-mode .excellence-cta {

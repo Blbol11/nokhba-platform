@@ -9,7 +9,7 @@
   text-align: center;
   margin-bottom: 2rem;
   padding: 2rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--gradient-primary);
   color: white;
   border-radius: 12px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -59,11 +59,11 @@
 }
 
 .admin-tabs button:hover {
-  color: #667eea;
+  color: var(--primary-color);
 }
 
 .admin-tabs button.active {
-  color: #667eea;
+  color: var(--primary-color);
   font-weight: bold;
 }
 
@@ -74,7 +74,7 @@
   left: 0;
   right: 0;
   height: 3px;
-  background: #667eea;
+  background: var(--primary-color);
 }
 
 .stats-grid {
@@ -108,7 +108,7 @@
 .stat-number {
   font-size: 3rem;
   font-weight: bold;
-  color: #667eea;
+  color: var(--primary-color);
   margin: 0;
 }
 
@@ -186,7 +186,7 @@
 
 .role-select:focus {
   outline: none;
-  border-color: #667eea;
+  border-color: var(--primary-color);
 }
 
 .status-btn {
