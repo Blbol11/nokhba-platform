@@ -8,6 +8,10 @@ const AdminDashboard = () => {
   const [stats, setStats] = useState(null);
   const [users, setUsers] = useState([]);
   const [files, setFiles] = useState([]);
+  const [enrichment, setEnrichment] = useState([]);
+  const [courses, setCourses] = useState([]);
+  const [research, setResearch] = useState([]);
+  const [inquiries, setInquiries] = useState([]);
   const [activeTab, setActiveTab] = useState('dashboard');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -59,12 +63,64 @@ const AdminDashboard = () => {
     }
   };
 
+  const fetchEnrichment = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/api/enrichment`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setEnrichment(response.data.data);
+    } catch (err) {
+      setError(err.response?.data?.message || 'حدث خطأ في جلب محتوى الإثراء');
+    }
+  };
+
+  const fetchCourses = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/api/courses`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setCourses(response.data.data);
+    } catch (err) {
+      setError(err.response?.data?.message || 'حدث خطأ في جلب الدورات');
+    }
+  };
+
+  const fetchResearch = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/api/research`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setResearch(response.data.data);
+    } catch (err) {
+      setError(err.response?.data?.message || 'حدث خطأ في جلب طلبات الدعم البحثي');
+    }
+  };
+
+  const fetchInquiries = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/api/inquiries`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setInquiries(response.data.data);
+    } catch (err) {
+      setError(err.response?.data?.message || 'حدث خطأ في جلب الاستفسارات');
+    }
+  };
+
   const handleTabChange = (tab) => {
     setActiveTab(tab);
     if (tab === 'users' && users.length === 0) {
       fetchUsers();
     } else if (tab === 'files' && files.length === 0) {
       fetchFiles();
+    } else if (tab === 'enrichment' && enrichment.length === 0) {
+      fetchEnrichment();
+    } else if (tab === 'courses' && courses.length === 0) {
+      fetchCourses();
+    } else if (tab === 'research' && research.length === 0) {
+      fetchResearch();
+    } else if (tab === 'inquiries' && inquiries.length === 0) {
+      fetchInquiries();
     }
   };
 
@@ -122,6 +178,58 @@ const AdminDashboard = () => {
     }
   };
 
+  const deleteEnrichment = async (id) => {
+    if (!window.confirm('هل أنت متأكد من حذف هذا المحتوى؟')) return;
+
+    try {
+      await axios.delete(`${API_URL}/api/enrichment/${id}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      fetchEnrichment();
+    } catch (err) {
+      alert(err.response?.data?.message || 'حدث خطأ');
+    }
+  };
+
+  const deleteCourse = async (id) => {
+    if (!window.confirm('هل أنت متأكد من حذف هذه الدورة؟')) return;
+
+    try {
+      await axios.delete(`${API_URL}/api/courses/${id}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      fetchCourses();
+    } catch (err) {
+      alert(err.response?.data?.message || 'حدث خطأ');
+    }
+  };
+
+  const deleteResearch = async (id) => {
+    if (!window.confirm('هل أنت متأكد من حذف هذا الطلب؟')) return;
+
+    try {
+      await axios.delete(`${API_URL}/api/research/${id}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      fetchResearch();
+    } catch (err) {
+      alert(err.response?.data?.message || 'حدث خطأ');
+    }
+  };
+
+  const deleteInquiry = async (id) => {
+    if (!window.confirm('هل أنت متأكد من حذف هذا الاستفسار؟')) return;
+
+    try {
+      await axios.delete(`${API_URL}/api/inquiries/${id}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      fetchInquiries();
+    } catch (err) {
+      alert(err.response?.data?.message || 'حدث خطأ');
+    }
+  };
+
   if (loading) {
     return <div className="admin-loading">جاري التحميل...</div>;
   }
@@ -155,6 +263,30 @@ const AdminDashboard = () => {
           onClick={() => handleTabChange('files')}
         >
           الملفات
+        </button>
+        <button
+          className={activeTab === 'enrichment' ? 'active' : ''}
+          onClick={() => handleTabChange('enrichment')}
+        >
+          محتوى الإثراء
+        </button>
+        <button
+          className={activeTab === 'courses' ? 'active' : ''}
+          onClick={() => handleTabChange('courses')}
+        >
+          الدورات
+        </button>
+        <button
+          className={activeTab === 'research' ? 'active' : ''}
+          onClick={() => handleTabChange('research')}
+        >
+          الدعم البحثي
+        </button>
+        <button
+          className={activeTab === 'inquiries' ? 'active' : ''}
+          onClick={() => handleTabChange('inquiries')}
+        >
+          الاستفسارات
         </button>
       </div>
 
@@ -312,6 +444,174 @@ const AdminDashboard = () => {
                     <button
                       className="delete-btn"
                       onClick={() => deleteFile(file._id)}
+                    >
+                      حذف
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {activeTab === 'enrichment' && (
+        <div className="enrichment-content">
+          <h2>إدارة محتوى الإثراء</h2>
+          <table className="admin-table">
+            <thead>
+              <tr>
+                <th>العنوان</th>
+                <th>النوع</th>
+                <th>المستوى</th>
+                <th>المشاهدات</th>
+                <th>التحميلات</th>
+                <th>الإجراءات</th>
+              </tr>
+            </thead>
+            <tbody>
+              {enrichment.map((item) => (
+                <tr key={item._id}>
+                  <td>{item.title}</td>
+                  <td>{item.type === 'video' ? 'فيديو' : item.type === 'pdf' ? 'PDF' : 'مادة'}</td>
+                  <td>{item.level || '-'}</td>
+                  <td>{item.views || 0}</td>
+                  <td>{item.downloads || 0}</td>
+                  <td>
+                    <button
+                      className="delete-btn"
+                      onClick={() => deleteEnrichment(item._id)}
+                    >
+                      حذف
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {activeTab === 'courses' && (
+        <div className="courses-content">
+          <h2>إدارة الدورات</h2>
+          <table className="admin-table">
+            <thead>
+              <tr>
+                <th>العنوان</th>
+                <th>النوع</th>
+                <th>المدة</th>
+                <th>المقاعد</th>
+                <th>المسجلين</th>
+                <th>السعر</th>
+                <th>الإجراءات</th>
+              </tr>
+            </thead>
+            <tbody>
+              {courses.map((course) => (
+                <tr key={course._id}>
+                  <td>{course.title}</td>
+                  <td>
+                    {course.type === 'remote' ? 'عن بعد' :
+                     course.type === 'inPerson' ? 'حضوري' : 'مسجل'}
+                  </td>
+                  <td>{course.duration}</td>
+                  <td>{course.seats}</td>
+                  <td>{course.enrolledCount || 0}</td>
+                  <td>{course.price === 0 ? 'مجاني' : `${course.price} ريال`}</td>
+                  <td>
+                    <button
+                      className="delete-btn"
+                      onClick={() => deleteCourse(course._id)}
+                    >
+                      حذف
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {activeTab === 'research' && (
+        <div className="research-content">
+          <h2>إدارة طلبات الدعم البحثي</h2>
+          <table className="admin-table">
+            <thead>
+              <tr>
+                <th>اسم الطالب</th>
+                <th>البريد الإلكتروني</th>
+                <th>نوع البحث</th>
+                <th>الموضوع</th>
+                <th>الحالة</th>
+                <th>الإجراءات</th>
+              </tr>
+            </thead>
+            <tbody>
+              {research.map((item) => (
+                <tr key={item._id}>
+                  <td>{item.student?.name}</td>
+                  <td>{item.student?.email}</td>
+                  <td>{item.researchType}</td>
+                  <td>{item.topic}</td>
+                  <td>
+                    <span className={`status-badge ${item.status}`}>
+                      {item.status === 'pending' ? 'قيد الانتظار' :
+                       item.status === 'inProgress' ? 'قيد المعالجة' :
+                       item.status === 'completed' ? 'مكتمل' : 'مرفوض'}
+                    </span>
+                  </td>
+                  <td>
+                    <button
+                      className="delete-btn"
+                      onClick={() => deleteResearch(item._id)}
+                    >
+                      حذف
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {activeTab === 'inquiries' && (
+        <div className="inquiries-content">
+          <h2>إدارة الاستفسارات</h2>
+          <table className="admin-table">
+            <thead>
+              <tr>
+                <th>الاسم</th>
+                <th>البريد الإلكتروني</th>
+                <th>الموضوع</th>
+                <th>الأولوية</th>
+                <th>الحالة</th>
+                <th>الإجراءات</th>
+              </tr>
+            </thead>
+            <tbody>
+              {inquiries.map((inquiry) => (
+                <tr key={inquiry._id}>
+                  <td>{inquiry.name}</td>
+                  <td>{inquiry.email}</td>
+                  <td>{inquiry.subject}</td>
+                  <td>
+                    <span className={`priority-badge ${inquiry.priority}`}>
+                      {inquiry.priority === 'high' ? 'عالية' :
+                       inquiry.priority === 'medium' ? 'متوسطة' : 'منخفضة'}
+                    </span>
+                  </td>
+                  <td>
+                    <span className={`status-badge ${inquiry.status}`}>
+                      {inquiry.status === 'pending' ? 'قيد الانتظار' : 'تم الرد'}
+                    </span>
+                  </td>
+                  <td>
+                    <button
+                      className="delete-btn"
+                      onClick={() => deleteInquiry(inquiry._id)}
                     >
                       حذف
                     </button>
