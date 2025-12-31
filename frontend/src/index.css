@@ -2,51 +2,61 @@
 @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap');
 
 :root {
-  /* نظام الألوان الموحد - منصة نخبة - KSU Blue */
-  --primary-color: #008DC3;         /* اللون الأساسي - KSU Blue */
-  --primary-dark: #006A93;          /* أزرق داكن للـ hover */
-  --primary-light: #33A5D2;         /* أزرق فاتح للتمييز */
-  --secondary-color: #005879;       /* اللون الثانوي - أزرق عميق */
-  --accent-gold: #D4AF37;           /* لون ذهبي أكاديمي محسّن للقراءة */
+  /* ═══════════════════════════════════════════════════════════
+     نظام الألوان الموحد - منصة نخبة (رسمي/احترافي)
+     لا تغيّر هذه الألوان بعد اعتمادها
+     ═══════════════════════════════════════════════════════════ */
 
-  /* ألوان الخلفيات */
-  --content-bg: #F8FAFB;            /* خلفية رمادي فاتح جداً */
-  --card-bg: #FFFFFF;               /* أبيض نقي للكروت */
-  --bg-color: #F8FAFB;
-  --light-color: #F8FAFB;
-  --bg-soft-blue: rgba(0, 141, 195, 0.03);
+  /* الألوان الأساسية */
+  --primary-color: #0D6EFD;         /* أزرق واضح - للهوية والأزرار */
+  --primary-hover: #0B5ED7;         /* أزرق hover */
+  --primary-dark: #0B5ED7;          /* للتوافق */
+  --secondary-color: #6C757D;       /* رمادي أنيق */
 
-  /* ألوان النصوص */
-  --primary-text: #1A202C;          /* نص رمادي داكن */
-  --secondary-text: #64748b;        /* نص رمادي متوسط دافئ */
-  --text-color: #1A202C;
-  --dark-color: #1A202C;
-  --text-muted: #94a3b8;
+  /* الخلفيات */
+  --bg-color: #F8F9FA;              /* خلفية الموقع */
+  --bg-main: #F8F9FA;
+  --content-bg: #F8F9FA;
+  --card-bg: #FFFFFF;               /* خلفية الكروت */
+  --light-color: #F8F9FA;
+  --bg-divider: #E9ECEF;            /* فواصل خفيفة */
+  --bg-soft-blue: rgba(13, 110, 253, 0.05);
+
+  /* النصوص */
+  --text-color: #212529;            /* عنوان رئيسي */
+  --text-primary: #212529;
+  --primary-text: #212529;
+  --dark-color: #212529;
+  --text-normal: #495057;           /* نص عادي */
+  --secondary-text: #6C757D;        /* نص ثانوي */
+  --text-secondary: #6C757D;
+  --text-muted: #6C757D;
 
   /* ألوان الحدود */
-  --border-color: #E2E8F0;          /* حدود رمادي فاتح */
-  --border-light: #F7FAFC;
-  --border-primary: rgba(0, 141, 195, 0.2);
+  --border-color: #E9ECEF;
+  --border-light: #F8F9FA;
+  --border-primary: rgba(13, 110, 253, 0.2);
 
   /* ألوان الحالات */
-  --success-color: #2E7D32;         /* أخضر للنجاح */
-  --danger-color: #EF4444;          /* أحمر للخطر */
-  --warning-color: #F59E0B;         /* برتقالي للتحذير */
-  --info-color: #008DC3;            /* أزرق للمعلومات */
+  --success-color: #28A745;
+  --accent-green: #28A745;
+  --danger-color: #DC3545;
+  --accent-red: #DC3545;
+  --warning-color: #FFC107;
+  --accent-yellow: #FFC107;
+  --info-color: #0D6EFD;
 
   /* للتوافق مع الكود القديم */
-  --header-color: #008DC3;
-  --sidebar-color: #005879;
-  --accent-color: #33A5D2;
+  --header-color: #0D6EFD;
+  --sidebar-color: #6C757D;
+  --accent-color: #0D6EFD;
 
-  /* تدرجات محسّنة ومخففة */
-  --gradient-primary: linear-gradient(135deg, #008DC3 0%, #0099D6 100%);
-  --gradient-secondary: linear-gradient(135deg, #006A93 0%, #008DC3 100%);
-  --gradient-light: linear-gradient(135deg, #33A5D2 0%, #66BCE3 100%);
-  --gradient-elegant: linear-gradient(135deg, #008DC3 0%, #0099D6 100%);
-  --gradient-soft: linear-gradient(180deg, rgba(0,141,195,0.03) 0%, rgba(0,141,195,0) 100%);
+  /* تدرجات بسيطة */
+  --gradient-primary: linear-gradient(135deg, #0D6EFD 0%, #0B5ED7 100%);
+  --gradient-overlay: linear-gradient(135deg, rgba(13, 110, 253, 0.05) 0%, rgba(11, 94, 215, 0.05) 100%);
+  --gradient-secondary: linear-gradient(135deg, #6C757D 0%, #5A6268 100%);
+  --gradient-soft: linear-gradient(180deg, rgba(13,110,253,0.03) 0%, rgba(13,110,253,0) 100%);
   --gradient-card: linear-gradient(145deg, #ffffff 0%, #fafcff 100%);
-  --gradient-gold: linear-gradient(135deg, #D4AF37 0%, #F0D78C 100%);
 
   /* ظلال محسّنة */
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
