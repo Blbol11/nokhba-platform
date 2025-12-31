@@ -6,14 +6,14 @@ import SEO from '../components/SEO';
 import './Home.css';
 
 const Home = () => {
-  const { isAuthenticated, user } = useContext(AuthContext);
+  const { isAuthenticated } = useContext(AuthContext);
   const [stats, setStats] = useState({
     students: 0,
     files: 0,
     courses: 0,
     hours: 0
   });
-  const [loading, setLoading] = useState(true);
+  const [openFaq, setOpenFaq] = useState(null);
 
   const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
@@ -44,65 +44,73 @@ const Home = () => {
           setStats(prev => ({ ...prev, [key]: Math.floor(current) }));
         }, increment);
       });
-
-      setLoading(false);
     } catch (error) {
       console.error('Error fetching stats:', error);
-      // في حالة الخطأ، استخدم قيم افتراضية
       const defaultStats = { students: 1250, files: 3400, courses: 85, hours: 12500 };
       setStats(defaultStats);
-      setLoading(false);
     }
   };
+
+  const toggleFaq = (index) => {
+    setOpenFaq(openFaq === index ? null : index);
+  };
+
+  const faqs = [
+    {
+      question: 'كيف أبدأ استخدام المنصة؟',
+      answer: 'سجّل الدخول باستخدام حسابك الجامعي، ثم اختر الخدمة المناسبة من القائمة الرئيسية.'
+    },
+    {
+      question: 'هل الخدمات مجانية؟',
+      answer: 'نعم، جميع الخدمات الأساسية متاحة مجاناً لجميع طلاب وطالبات الجامعة.'
+    },
+    {
+      question: 'كيف أرفع ملفاتي الدراسية؟',
+      answer: 'انتقل إلى صفحة الملفات، ثم اضغط على زر "رفع ملف جديد" واتبع التعليمات.'
+    },
+    {
+      question: 'هل يمكنني التسجيل في الدورات؟',
+      answer: 'نعم، تصفح قسم التفوق المستمر واختر الدورة المناسبة، ثم اضغط على "التسجيل في الدورة".'
+    },
+    {
+      question: 'كيف أتواصل مع الدعم الفني؟',
+      answer: 'يمكنك إرسال استفسارك من خلال صفحة الاستفسارات أو التواصل معنا عبر البريد الإلكتروني.'
+    }
+  ];
 
   return (
     <div className="home-page">
       <SEO
         title="نُخبة - منصة التميز الأكاديمي"
-        description="منصة تعليمية متكاملة تجمع بين التعليم والإثراء المعرفي لتمكين الطلاب والطالبات من التفوق الأكاديمي المستمر. دورات، ملفات دراسية، دعم بحثي ومحتوى إثرائي."
-        keywords="نخبة، التميز الأكاديمي، جامعة الملك سعود، تعليم، دورات، ملفات دراسية، محتوى إثرائي، دعم بحثي، KSU، Nokhba"
+        description="منصة نخبة - خدمات رقمية تسهّل التسجيل والمتابعة وإدارة النماذج في مكان واحد لطلاب وطالبات جامعة الملك سعود"
+        keywords="نخبة، جامعة الملك سعود، خدمات رقمية، ملفات دراسية، دورات، محتوى إثرائي، KSU، Nokhba"
         url="https://nokhba-platform.pages.dev"
       />
 
       {/* Hero Section */}
       <section className="hero">
-        <div className="hero-shapes">
-          <div className="shape shape-1"></div>
-          <div className="shape shape-2"></div>
-          <div className="shape shape-3"></div>
-        </div>
         <div className="container">
-          <div className="hero-content animate-fade-in-up">
-            <div className="hero-badge">منصة التميز الأكاديمي</div>
-            <h1 className="hero-title">
-              مرحباً بك في
-              <span className="hero-highlight"> نُخبة</span>
-            </h1>
-            <p className="hero-subtitle">
-              منصة تعليمية متكاملة تجمع بين التعليم والإثراء المعرفي
-              <br />
-              لتمكين الطلاب والطالبات من التفوق الأكاديمي المستمر
+          <div className="hero-content">
+            <h1 className="hero-title">منصة نخبة</h1>
+            <p className="hero-description">
+              خدمات رقمية تسهّل التسجيل والمتابعة وإدارة النماذج في مكان واحد.
             </p>
 
             {!isAuthenticated ? (
-              <div className="hero-actions">
-                <Link to="/register" className="btn-hero btn-hero-primary">
-                  ابدأ رحلتك الآن
+              <div className="hero-buttons">
+                <Link to="/register" className="btn btn-primary">
+                  ابدأ الآن
                 </Link>
-                <Link to="/files" className="btn-hero btn-hero-outline">
-                  استكشف المحتوى
+                <Link to="/excellence" className="btn btn-secondary">
+                  استكشف الخدمات
                 </Link>
               </div>
             ) : (
-              <div className="hero-actions">
-                <div className="welcome-box">
-                  <span className="welcome-greeting">مرحباً بعودتك</span>
-                  <span className="welcome-name">{user?.name}</span>
-                </div>
-                <Link to="/files" className="btn-hero btn-hero-primary">
-                  تصفح الملفات
+              <div className="hero-buttons">
+                <Link to="/files" className="btn btn-primary">
+                  مكتبة الملفات
                 </Link>
-                <Link to="/excellence" className="btn-hero btn-hero-gold">
+                <Link to="/excellence" className="btn btn-secondary">
                   التفوق المستمر
                 </Link>
               </div>
@@ -114,20 +122,13 @@ const Home = () => {
                 <div className="stat-number">{stats.students.toLocaleString('ar')}</div>
                 <div className="stat-label">طالب وطالبة</div>
               </div>
-              <div className="stat-divider"></div>
               <div className="stat-item">
                 <div className="stat-number">{stats.files.toLocaleString('ar')}</div>
                 <div className="stat-label">ملف دراسي</div>
               </div>
-              <div className="stat-divider"></div>
               <div className="stat-item">
                 <div className="stat-number">{stats.courses.toLocaleString('ar')}</div>
                 <div className="stat-label">دورة تدريبية</div>
-              </div>
-              <div className="stat-divider"></div>
-              <div className="stat-item">
-                <div className="stat-number">{stats.hours.toLocaleString('ar')}</div>
-                <div className="stat-label">ساعة محتوى</div>
               </div>
             </div>
           </div>
@@ -137,116 +138,153 @@ const Home = () => {
       {/* Features Section */}
       <section className="features">
         <div className="container">
-          <div className="section-header">
-            <h2 className="section-title">لماذا تختار نُخبة؟</h2>
-            <p className="section-subtitle">منصة متكاملة تجمع كل ما تحتاجه للتفوق الأكاديمي</p>
-          </div>
+          <h2 className="section-title">مميزات المنصة</h2>
 
           <div className="features-grid">
-            <div className="feature-card card-premium">
-              <div className="feature-number">01</div>
-              <h3>مكتبة شاملة</h3>
-              <p>الوصول إلى آلاف الملفات الدراسية والمحاضرات المنظمة حسب المواد والتخصصات</p>
+            <div className="feature-card">
+              <div className="feature-icon">📱</div>
+              <h3>واجهة سهلة</h3>
+              <p>تصميم بسيط وعصري يجعل التنقل والاستخدام سهلاً وسريعاً</p>
             </div>
 
-            <div className="feature-card card-premium">
-              <div className="feature-number">02</div>
-              <h3>دورات تدريبية</h3>
-              <p>دورات احترافية عن بعد وحضورياً في مختلف المجالات التقنية والأكاديمية</p>
+            <div className="feature-card">
+              <div className="feature-icon">⚡</div>
+              <h3>متابعة فورية</h3>
+              <p>تابع حالة طلباتك ونماذجك في الوقت الفعلي</p>
             </div>
 
-            <div className="feature-card card-premium">
-              <div className="feature-number">03</div>
-              <h3>محتوى إثرائي</h3>
-              <p>فيديوهات تعليمية ومواد إثرائية لتعزيز المعرفة وتطوير المهارات</p>
+            <div className="feature-card">
+              <div className="feature-icon">📋</div>
+              <h3>نماذج ذكية</h3>
+              <p>نماذج إلكترونية تفاعلية تملأ وتُرسل بضغطة زر</p>
             </div>
 
-            <div className="feature-card card-premium">
-              <div className="feature-number">04</div>
-              <h3>دعم بحثي</h3>
-              <p>مساعدة في مشاريع التخرج والأبحاث العلمية من خلال فريق متخصص</p>
-            </div>
-
-            <div className="feature-card card-premium">
-              <div className="feature-number">05</div>
-              <h3>آمن وموثوق</h3>
-              <p>نظام حماية متقدم لبياناتك مع نسخ احتياطي مستمر لجميع الملفات</p>
-            </div>
-
-            <div className="feature-card card-premium">
-              <div className="feature-number">06</div>
-              <h3>سهل الاستخدام</h3>
-              <p>واجهة عصرية وبسيطة تجعل التنقل والبحث عن المحتوى أمراً سهلاً</p>
+            <div className="feature-card">
+              <div className="feature-icon">📁</div>
+              <h3>تنظيم وتوثيق</h3>
+              <p>احفظ جميع ملفاتك ونماذجك في مكان واحد منظم</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Services Grid */}
+      {/* Services Section */}
       <section className="services">
         <div className="container">
-          <div className="section-header">
-            <h2 className="section-title">خدماتنا المتكاملة</h2>
-            <p className="section-subtitle">كل ما تحتاجه في مكان واحد</p>
-          </div>
+          <h2 className="section-title">خدماتنا</h2>
 
           <div className="services-grid">
             <Link to="/files" className="service-card">
-              <div className="service-header">
-                <h3>مكتبة الملفات</h3>
-                <span className="service-count">3400+ ملف</span>
-              </div>
-              <p>محاضرات، واجبات، مشاريع، كتب، وملخصات دراسية شاملة</p>
-              <div className="service-link">استكشف الملفات ←</div>
+              <div className="service-icon">📚</div>
+              <h3>مكتبة الملفات</h3>
+              <p>محاضرات، واجبات، مشاريع، وملخصات دراسية شاملة</p>
             </Link>
 
-            <Link to="/excellence" className="service-card service-highlight">
-              <div className="service-header">
-                <h3>التفوق المستمر</h3>
-                <span className="service-badge">مميز</span>
-              </div>
-              <p>محتوى إثرائي متنوع ودورات تدريبية ودعم بحثي متخصص</p>
-              <div className="service-link">ابدأ التفوق ←</div>
+            <Link to="/excellence/courses" className="service-card">
+              <div className="service-icon">🎓</div>
+              <h3>الدورات التدريبية</h3>
+              <p>دورات احترافية في مختلف المجالات التقنية والأكاديمية</p>
             </Link>
 
-            <div className="service-card">
-              <div className="service-header">
-                <h3>استفسارات واستشارات</h3>
-              </div>
-              <p>فريق دعم جاهز للإجابة على استفساراتك الأكاديمية</p>
-              <div className="service-link">تواصل معنا ←</div>
+            <Link to="/excellence/enrichment" className="service-card">
+              <div className="service-icon">💡</div>
+              <h3>المحتوى الإثرائي</h3>
+              <p>فيديوهات تعليمية ومواد إثرائية لتعزيز المعرفة</p>
+            </Link>
+
+            <Link to="/excellence/research" className="service-card">
+              <div className="service-icon">🔬</div>
+              <h3>الدعم البحثي</h3>
+              <p>مساعدة في مشاريع التخرج والأبحاث العلمية</p>
+            </Link>
+
+            <Link to="/excellence/inquiries" className="service-card">
+              <div className="service-icon">💬</div>
+              <h3>الاستفسارات</h3>
+              <p>فريق دعم جاهز للإجابة على استفساراتك</p>
+            </Link>
+
+            <Link to="/profile" className="service-card">
+              <div className="service-icon">👤</div>
+              <h3>الملف الشخصي</h3>
+              <p>إدارة حسابك ومتابعة نشاطك وإنجازاتك</p>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works Section */}
+      <section className="how-it-works">
+        <div className="container">
+          <h2 className="section-title">كيف تعمل المنصة؟</h2>
+
+          <div className="steps-grid">
+            <div className="step-card">
+              <div className="step-number">1</div>
+              <h3>سجّل الدخول</h3>
+              <p>استخدم حسابك الجامعي للدخول إلى المنصة</p>
+            </div>
+
+            <div className="step-card">
+              <div className="step-number">2</div>
+              <h3>اختر الخدمة</h3>
+              <p>تصفح الخدمات المتاحة واختر ما يناسب احتياجك</p>
+            </div>
+
+            <div className="step-card">
+              <div className="step-number">3</div>
+              <h3>عبّئ البيانات</h3>
+              <p>أكمل النموذج أو قم بالعملية المطلوبة</p>
+            </div>
+
+            <div className="step-card">
+              <div className="step-number">4</div>
+              <h3>تابع الحالة</h3>
+              <p>راقب تقدم طلبك واحصل على النتائج</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="cta">
-        <div className="cta-shapes">
-          <div className="cta-shape cta-shape-1"></div>
-          <div className="cta-shape cta-shape-2"></div>
-        </div>
+      {/* FAQ Section */}
+      <section className="faq">
         <div className="container">
-          <div className="cta-content">
-            <h2 className="cta-title">هل أنت مستعد للانضمام إلى نُخبة؟</h2>
-            <p className="cta-subtitle">انضم إلى آلاف الطلاب الذين يحققون التميز الأكاديمي</p>
-            {!isAuthenticated ? (
-              <div className="cta-actions">
-                <Link to="/register" className="btn-cta btn-cta-primary">
-                  ابدأ مجاناً الآن
-                </Link>
-                <Link to="/files" className="btn-cta btn-cta-outline">
-                  تصفح المحتوى
-                </Link>
+          <h2 className="section-title">الأسئلة الشائعة</h2>
+
+          <div className="faq-list">
+            {faqs.map((faq, index) => (
+              <div key={index} className={`faq-item ${openFaq === index ? 'open' : ''}`}>
+                <button className="faq-question" onClick={() => toggleFaq(index)}>
+                  <span>{faq.question}</span>
+                  <span className="faq-icon">{openFaq === index ? '−' : '+'}</span>
+                </button>
+                {openFaq === index && (
+                  <div className="faq-answer">
+                    <p>{faq.answer}</p>
+                  </div>
+                )}
               </div>
-            ) : (
-              <div className="cta-actions">
-                <Link to="/profile" className="btn-cta btn-cta-primary">
-                  انتقل إلى ملفك الشخصي
-                </Link>
-              </div>
-            )}
+            ))}
           </div>
+        </div>
+      </section>
+
+      {/* Final CTA Section */}
+      <section className="final-cta">
+        <div className="container">
+          <h2 className="cta-title">جاهز تبدأ؟</h2>
+          <p className="cta-description">
+            انضم إلى آلاف الطلاب الذين يستخدمون منصة نخبة
+          </p>
+          {!isAuthenticated ? (
+            <Link to="/register" className="btn btn-primary">
+              ابدأ الآن مجاناً
+            </Link>
+          ) : (
+            <Link to="/files" className="btn btn-primary">
+              استكشف المحتوى
+            </Link>
+          )}
         </div>
       </section>
     </div>
