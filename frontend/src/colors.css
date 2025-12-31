@@ -1,0 +1,23 @@
+/* لوحة الألوان الرسمية لمنصة نخبة */
+
+:root {
+  /* الألوان الأساسية */
+  --header-color: #00A6CE;      /* لون الهيدر */
+  --sidebar-color: #0B3C5D;     /* لون القائمة الجانبية */
+  --content-bg: #F7FAFC;        /* لون المحتوى */
+  --card-bg: #FFFFFF;           /* لون الكروت */
+  --primary-text: #0B3C5D;      /* النص الرئيسي */
+  --secondary-text: #6B7280;    /* النص الثانوي */
+  
+  /* ألوان إضافية للتوافق */
+  --primary-color: #00A6CE;
+  --secondary-color: #0B3C5D;
+  --bg-color: #F7FAFC;
+  --text-color: #0B3C5D;
+  --dark-color: #0B3C5D;
+  --light-color: #F7FAFC;
+  --border-color: #e2e8f0;
+  --success-color: #10b981;
+  --danger-color: #ef4444;
+  --warning-color: #f59e0b;
+}

@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة نخبة - مبادرة التفوق المستمر</title>
+    <style>
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Cairo', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            color: #2d3436;
+            background: #ffffff;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header Section */
+        .header {
+            text-align: center;
+            padding: 30px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.95;
+        }
+
+        .header .meta {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid rgba(255, 255, 255, 0.3);
+            font-size: 0.95rem;
+        }
+
+        /* Section Styles */
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: #667eea;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .section-subtitle {
+            font-size: 1.5rem;
+            color: #764ba2;
+            margin: 25px 0 15px 0;
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-right: 4px solid #667eea;
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .card h3 {
+            color: #2d3436;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .card p {
+            color: #6c757d;
+            font-size: 0.95rem;
+        }
+
+        .card ul {
+            list-style: none;
+            margin-top: 10px;
+        }
+
+        .card ul li {
+            padding: 5px 0;
+            padding-right: 20px;
+            position: relative;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        .card ul li::before {
+            content: '✓';
+            position: absolute;
+            right: 0;
+            color: #00b894;
+            font-weight: bold;
+        }
+
+        /* Info Box */
+        .info-box {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 8px;
+            border-right: 4px solid #1976d2;
+            margin: 20px 0;
+        }
+
+        .info-box h3 {
+            color: #1976d2;
+            margin-bottom: 10px;
+        }
+
+        .info-box p {
+            color: #2d3436;
+        }
+
+        /* Contact Info */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .contact-item {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            border-right: 4px solid #ffc107;
+        }
+
+        .contact-item .icon {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .contact-item .label {
+            font-weight: bold;
+            color: #2d3436;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .contact-item .value {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        /* Table Styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: right;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background: #667eea;
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 2px solid #ddd;
+            text-align: center;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        /* QR Code Section */
+        .qr-section {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .qr-placeholder {
+            width: 150px;
+            height: 150px;
+            background: white;
+            border: 2px solid #ddd;
+            margin: 10px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                padding: 0;
+                background: white;
+            }
+
+            .header {
+                background: #667eea !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .section {
+                page-break-inside: avoid;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+
+            a {
+                text-decoration: none;
+                color: inherit;
+            }
+
+            .card, .info-box, .contact-item {
+                break-inside: avoid;
+            }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .header .subtitle {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            table {
+                font-size: 0.85rem;
+            }
+
+            th, td {
+                padding: 8px;
+            }
+        }
+
+        /* Print Button */
+        .print-btn {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .print-btn:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(102, 126, 234, 0.5);
+        }
+
+        @media print {
+            .print-btn {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Print Button -->
+    <button class="print-btn no-print" onclick="window.print()">🖨️ طباعة</button>
+
+    <!-- Header -->
+    <header class="header">
+        <h1>منصة نخبة 🎓</h1>
+        <p class="subtitle">مبادرة التفوق المستمر</p>
+        <p class="subtitle">منصة تعليمية متكاملة لمشاركة المعرفة ودعم الطلاب المتفوقين</p>
+        <div class="meta">
+            <p><strong>تنفيذ:</strong> مريم العتيبي</p>
+            <p><strong>مسار التقنية والابتكار – مبادرة التفوق المستمر</strong></p>
+            <p><strong>عمادة شؤون الطلاب</strong></p>
+        </div>
+    </header>
+
+    <!-- Overview Section -->
+    <section class="section">
+        <h2 class="section-title">نظرة عامة</h2>
+        <div class="info-box">
+            <h3>الرؤية</h3>
+            <p>توفير منصة تفاعلية تسهّل وصول الطلبة المتفوقين إلى الدورات التعليمية ودعم البحث العلمي والدروس الإثرائية، بما يلبّي احتياجاتهم ويحفّز قدراتهم، في بيئة تعليمية داعمة ومحفّزة، تسهم في تحسين التجربة التعليمية.</p>
+        </div>
+        <div class="info-box">
+            <h3>الهدف</h3>
+            <p>دعم التفوق الأكاديمي + الابتكار + البحث العلمي بطريقة سهلة ورقمية، بما يتوافق مع رؤية المملكة العربية السعودية 2030.</p>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section">
+        <h2 class="section-title">الخدمات الرئيسية</h2>
+        <div class="cards-grid">
+            <div class="card">
+                <span class="card-icon">📚</span>
+                <h3>الدورات التعليمية</h3>
+                <p>دورات شاملة بأنواع متعددة</p>
+                <ul>
+                    <li>دورات عن بُعد (Zoom/Teams)</li>
+                    <li>دورات حضورية</li>
+                    <li>دورات مسجلة</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <span class="card-icon">🔬</span>
+                <h3>دعم البحث العلمي</h3>
+                <p>دعم شامل للباحثين</p>
+                <ul>
+                    <li>الإرشاد الأكاديمي</li>
+                    <li>دعم الأفكار البحثية</li>
+                    <li>مساعدة في إعداد الأبحاث</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <span class="card-icon">🎓</span>
+                <h3>الدروس الإثرائية</h3>
+                <p>محتوى إثرائي متنوع</p>
+                <ul>
+                    <li>فيديوهات تعليمية</li>
+                    <li>ملفات PDF</li>
+                    <li>مواد داعمة للتعلم</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <span class="card-icon">💬</span>
+                <h3>الاستفسارات والدعم</h3>
+                <p>دعم فني ومتابعة</p>
+                <ul>
+                    <li>طرح الأسئلة</li>
+                    <li>الدعم الفني</li>
+                    <li>استفسارات المحتوى</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Types -->
+    <section class="section">
+        <h2 class="section-title">أنواع الدورات التعليمية</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>النوع</th>
+                    <th>الوصف</th>
+                    <th>المميزات</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>دورات عن بُعد</strong></td>
+                    <td>عبر منصات Zoom أو Microsoft Teams</td>
+                    <td>مواعيد محددة، تفاعل مباشر، مقاعد محدودة</td>
+                </tr>
+                <tr>
+                    <td><strong>دورات حضورية</strong></td>
+                    <td>في مقر الجامعة</td>
+                    <td>ورش عملية، تفاعل مباشر، أنشطة جماعية</td>
+                </tr>
+                <tr>
+                    <td><strong>دورات مسجلة</strong></td>
+                    <td>محتوى مسجل متاح في أي وقت</td>
+                    <td>مرونة في التعلم، قابلة للتحميل، متاحة دائماً</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Research Support -->
+    <section class="section">
+        <h2 class="section-title">المجالات البحثية المدعومة</h2>
+        <div class="cards-grid">
+            <div class="card">
+                <span class="card-icon">🔬</span>
+                <h3>العلوم التطبيقية</h3>
+            </div>
+            <div class="card">
+                <span class="card-icon">💻</span>
+                <h3>تقنية المعلومات</h3>
+            </div>
+            <div class="card">
+                <span class="card-icon">🏥</span>
+                <h3>العلوم الصحية</h3>
+            </div>
+            <div class="card">
+                <span class="card-icon">📊</span>
+                <h3>إدارة الأعمال</h3>
+            </div>
+            <div class="card">
+                <span class="card-icon">🎨</span>
+                <h3>الفنون والتصميم</h3>
+            </div>
+            <div class="card">
+                <span class="card-icon">⚖️</span>
+                <h3>القانون</h3>
+            </div>
+            <div class="card">
+                <span class="card-icon">🌍</span>
+                <h3>العلوم الاجتماعية</h3>
+            </div>
+            <div class="card">
+                <span class="card-icon">🔧</span>
+                <h3>الهندسة</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Information -->
+    <section class="section">
+        <h2 class="section-title">طرق التواصل</h2>
+        <div class="contact-grid">
+            <div class="contact-item">
+                <div class="icon">📧</div>
+                <span class="label">البريد الإلكتروني</span>
+                <span class="value">excellence@university.edu.sa</span>
+            </div>
+            <div class="contact-item">
+                <div class="icon">📱</div>
+                <span class="label">الهاتف</span>
+                <span class="value">+966 11 123 4567</span>
+            </div>
+            <div class="contact-item">
+                <div class="icon">💬</div>
+                <span class="label">واتساب</span>
+                <span class="value">+966 50 123 4567</span>
+            </div>
+            <div class="contact-item">
+                <div class="icon">📍</div>
+                <span class="label">الموقع</span>
+                <span class="value">عمادة شؤون الطلاب - المبنى الإداري</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Working Hours -->
+    <section class="section">
+        <h2 class="section-title">ساعات العمل</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>الأيام</th>
+                    <th>الأوقات</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>الأحد - الخميس</td>
+                    <td>8:00 صباحاً - 4:00 مساءً</td>
+                </tr>
+                <tr>
+                    <td>الجمعة - السبت</td>
+                    <td>إجازة</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="info-box">
+            <p><strong>⏰ وقت الرد:</strong> سنرد على استفساراتك خلال 24-48 ساعة عمل</p>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="section">
+        <h2 class="section-title">المميزات</h2>
+        <div class="cards-grid">
+            <div class="card">
+                <span class="card-icon">🎯</span>
+                <h3>دعم التفوق الأكاديمي</h3>
+                <p>برامج متخصصة لدعم المتفوقين</p>
+            </div>
+            <div class="card">
+                <span class="card-icon">💡</span>
+                <h3>تعزيز الابتكار</h3>
+                <p>بيئة محفزة للإبداع والابتكار</p>
+            </div>
+            <div class="card">
+                <span class="card-icon">🔍</span>
+                <h3>البحث العلمي</h3>
+                <p>دعم شامل للبحث العلمي</p>
+            </div>
+            <div class="card">
+                <span class="card-icon">📱</span>
+                <h3>منصة رقمية</h3>
+                <p>وصول سهل وسريع للموارد</p>
+            </div>
+            <div class="card">
+                <span class="card-icon">👨‍🏫</span>
+                <h3>إرشاد أكاديمي</h3>
+                <p>مرشدون أكاديميون متخصصون</p>
+            </div>
+            <div class="card">
+                <span class="card-icon">🏆</span>
+                <h3>رؤية 2030</h3>
+                <p>متوافقة مع رؤية المملكة 2030</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- QR Code Section -->
+    <section class="section qr-section no-print">
+        <h2 class="section-title">الوصول السريع</h2>
+        <div class="qr-placeholder">QR</div>
+        <p>امسح الرمز للوصول إلى المنصة</p>
+        <p><strong>http://localhost:3000/excellence</strong></p>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p><strong>منصة نخبة - مبادرة التفوق المستمر</strong></p>
+        <p>عمادة شؤون الطلاب | مسار التقنية والابتكار</p>
+        <p>متوافقة مع رؤية المملكة العربية السعودية 2030</p>
+        <p style="margin-top: 10px;">© 2024 جميع الحقوق محفوظة</p>
+    </footer>
+
+</body>
+</html>
