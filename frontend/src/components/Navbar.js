@@ -37,6 +37,9 @@ const Navbar = () => {
             {isAuthenticated ? (
               <>
                 <div className="user-menu">
+                  <Link to="/profile" className="profile-btn" title="الملف الشخصي">
+                    <span className="profile-icon">{user?.name?.charAt(0)?.toUpperCase()}</span>
+                  </Link>
                   <span className="user-name">مرحباً، {user?.name}</span>
                   <button onClick={handleLogout} className="btn btn-secondary">
                     تسجيل الخروج

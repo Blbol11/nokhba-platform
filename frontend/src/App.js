@@ -13,6 +13,7 @@ import Research from './pages/Research';
 import Enrichment from './pages/Enrichment';
 import Inquiries from './pages/Inquiries';
 import AdminDashboard from './pages/AdminDashboard';
+import Profile from './pages/Profile';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
               <Route path="/excellence/enrichment" element={<Enrichment />} />
               <Route path="/excellence/inquiries" element={<Inquiries />} />
               <Route path="/admin" element={<AdminDashboard />} />
+              <Route path="/profile" element={<Profile />} />
             </Routes>
           </div>
         </Router>
