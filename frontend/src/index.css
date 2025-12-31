@@ -8,9 +8,9 @@
      ═══════════════════════════════════════════════════════════ */
 
   /* الألوان الأساسية */
-  --primary-color: #0D6EFD;         /* أزرق واضح - للهوية والأزرار */
-  --primary-hover: #0B5ED7;         /* أزرق hover */
-  --primary-dark: #0B5ED7;          /* للتوافق */
+  --primary-color: #008DC3;         /* KSU Blue الرسمي */
+  --primary-hover: #006A93;         /* أزرق hover داكن */
+  --primary-dark: #006A93;          /* للتوافق */
   --secondary-color: #6C757D;       /* رمادي أنيق */
 
   /* الخلفيات */
@@ -20,7 +20,7 @@
   --card-bg: #FFFFFF;               /* خلفية الكروت */
   --light-color: #F8F9FA;
   --bg-divider: #E9ECEF;            /* فواصل خفيفة */
-  --bg-soft-blue: rgba(13, 110, 253, 0.05);
+  --bg-soft-blue: rgba(0, 141, 195, 0.05);
 
   /* النصوص */
   --text-color: #212529;            /* عنوان رئيسي */
@@ -35,7 +35,7 @@
   /* ألوان الحدود */
   --border-color: #E9ECEF;
   --border-light: #F8F9FA;
-  --border-primary: rgba(13, 110, 253, 0.2);
+  --border-primary: rgba(0, 141, 195, 0.2);
 
   /* ألوان الحالات */
   --success-color: #28A745;
@@ -44,18 +44,18 @@
   --accent-red: #DC3545;
   --warning-color: #FFC107;
   --accent-yellow: #FFC107;
-  --info-color: #0D6EFD;
+  --info-color: #008DC3;
 
   /* للتوافق مع الكود القديم */
-  --header-color: #0D6EFD;
+  --header-color: #008DC3;
   --sidebar-color: #6C757D;
-  --accent-color: #0D6EFD;
+  --accent-color: #008DC3;
 
   /* تدرجات بسيطة */
-  --gradient-primary: linear-gradient(135deg, #0D6EFD 0%, #0B5ED7 100%);
-  --gradient-overlay: linear-gradient(135deg, rgba(13, 110, 253, 0.05) 0%, rgba(11, 94, 215, 0.05) 100%);
+  --gradient-primary: linear-gradient(135deg, #008DC3 0%, #006A93 100%);
+  --gradient-overlay: linear-gradient(135deg, rgba(0, 141, 195, 0.05) 0%, rgba(0, 106, 147, 0.05) 100%);
   --gradient-secondary: linear-gradient(135deg, #6C757D 0%, #5A6268 100%);
-  --gradient-soft: linear-gradient(180deg, rgba(13,110,253,0.03) 0%, rgba(13,110,253,0) 100%);
+  --gradient-soft: linear-gradient(180deg, rgba(0,141,195,0.03) 0%, rgba(0,141,195,0) 100%);
   --gradient-card: linear-gradient(145deg, #ffffff 0%, #fafcff 100%);
 
   /* ظلال محسّنة */
