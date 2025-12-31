@@ -52,6 +52,7 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/nokhba')
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/files', require('./routes/files'));
 app.use('/api/users', require('./routes/users'));
+app.use('/api/admin', require('./routes/admin'));
 
 // الصفحة الرئيسية
 app.get('/', (req, res) => {

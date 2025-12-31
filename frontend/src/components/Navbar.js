@@ -26,6 +26,9 @@ const Navbar = () => {
             <Link to="/" className="nav-link">الرئيسية</Link>
             <Link to="/files" className="nav-link">الملفات</Link>
             <Link to="/excellence" className="nav-link nav-link-excellence">مبادرة التفوق المستمر</Link>
+            {isAuthenticated && user?.role === 'admin' && (
+              <Link to="/admin" className="nav-link admin-link">لوحة التحكم</Link>
+            )}
 
             <button onClick={toggleTheme} className="theme-toggle" aria-label="تبديل الوضع">
               {isDark ? '☀️' : '🌙'}
