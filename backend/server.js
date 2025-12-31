@@ -19,9 +19,7 @@ const corsOptions = {
       'http://localhost:3000',
       'http://localhost:5000',
       process.env.FRONTEND_URL,
-      // أضف domain Cloudflare Pages هنا بعد النشر
-      // 'https://nokhba-platform.pages.dev',
-      // 'https://your-custom-domain.com'
+      'https://nokhba-platform.pages.dev'
     ].filter(Boolean);
 
     if (allowedOrigins.indexOf(origin) !== -1) {
@@ -39,8 +37,8 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
 // مجلد الملفات المرفوعة
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
