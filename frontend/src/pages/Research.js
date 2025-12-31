@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useToast } from '../context/ToastContext';
 import './SubPage.css';
 
 const Research = () => {
+  const { showSuccess } = useToast();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -29,7 +31,7 @@ const Research = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Research Support Request:', formData);
-    alert('تم إرسال طلبك بنجاح! سنتواصل معك قريباً');
+    showSuccess('تم إرسال طلبك بنجاح! سنتواصل معك قريباً');
     setFormData({
       name: '',
       email: '',

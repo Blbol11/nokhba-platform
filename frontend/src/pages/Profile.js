@@ -5,6 +5,7 @@ import './Profile.css';
 const Profile = () => {
   const { user } = useAuth();
   const [isEditing, setIsEditing] = useState(false);
+  const [activeSection, setActiveSection] = useState('info');
   const [formData, setFormData] = useState({
     name: user?.name || '',
     email: user?.email || '',
@@ -13,6 +14,16 @@ const Profile = () => {
     university: user?.university || '',
     bio: user?.bio || ''
   });
+
+  // Mock data for stats
+  const userStats = {
+    uploadedFiles: 12,
+    downloads: 45,
+    enrolledCourses: 3,
+    completedCourses: 1,
+    achievements: 5,
+    points: 850
+  };
 
   const handleChange = (e) => {
     setFormData({
@@ -39,26 +50,98 @@ const Profile = () => {
   }
 
   return (
-    <div className="profile-container">
-      <div className="profile-card">
-        <div className="profile-header">
-          <div className="profile-avatar">
-            {user.avatar ? (
-              <img src={user.avatar} alt={user.name} />
-            ) : (
-              <div className="avatar-placeholder">
-                {user.name?.charAt(0)?.toUpperCase()}
+    <div className="profile-page">
+      <div className="profile-container">
+        {/* Cover & Avatar Section */}
+        <div className="profile-cover">
+          <div className="cover-gradient"></div>
+          <div className="profile-avatar-section">
+            <div className="profile-avatar-wrapper">
+              <div className="profile-avatar-large">
+                {user.avatar ? (
+                  <img src={user.avatar} alt={user.name} />
+                ) : (
+                  <div className="avatar-placeholder-large">
+                    {user.name?.charAt(0)?.toUpperCase()}
+                  </div>
+                )}
+                <div className="avatar-status-indicator"></div>
               </div>
+              <div className="profile-info-header">
+                <h1 className="profile-name">{user.name}</h1>
+                <p className="profile-email">{user.email}</p>
+                <div className="profile-badges">
+                  <span className={`role-badge-new ${user.role}`}>
+                    {user.role === 'admin' ? 'مدير المنصة' : 'طالب'}
+                  </span>
+                  {user.isActive && <span className="status-badge-new">نشط</span>}
+                </div>
+              </div>
+            </div>
+
+            {!isEditing && (
+              <button
+                className="btn-edit-profile"
+                onClick={() => setIsEditing(true)}
+              >
+                تعديل الملف الشخصي
+              </button>
             )}
           </div>
-          <div className="profile-header-info">
-            <h1>{user.name}</h1>
-            <p className="profile-email">{user.email}</p>
-            <span className={`role-badge ${user.role}`}>
-              {user.role === 'admin' ? 'مدير' : 'طالب'}
-            </span>
+        </div>
+
+        {/* Stats Cards */}
+        <div className="profile-stats-grid">
+          <div className="stat-card-profile">
+            <div className="stat-icon-wrapper">
+              <div className="stat-number-profile">{userStats.uploadedFiles}</div>
+            </div>
+            <div className="stat-label-profile">ملف مرفوع</div>
+          </div>
+          <div className="stat-card-profile">
+            <div className="stat-icon-wrapper">
+              <div className="stat-number-profile">{userStats.downloads}</div>
+            </div>
+            <div className="stat-label-profile">تحميل</div>
+          </div>
+          <div className="stat-card-profile">
+            <div className="stat-icon-wrapper">
+              <div className="stat-number-profile">{userStats.enrolledCourses}</div>
+            </div>
+            <div className="stat-label-profile">دورة مسجلة</div>
+          </div>
+          <div className="stat-card-profile">
+            <div className="stat-icon-wrapper">
+              <div className="stat-number-profile">{userStats.points}</div>
+            </div>
+            <div className="stat-label-profile">نقطة</div>
           </div>
         </div>
+
+        {/* Tabs Navigation */}
+        <div className="profile-tabs">
+          <button
+            className={`profile-tab ${activeSection === 'info' ? 'active' : ''}`}
+            onClick={() => setActiveSection('info')}
+          >
+            المعلومات الشخصية
+          </button>
+          <button
+            className={`profile-tab ${activeSection === 'activity' ? 'active' : ''}`}
+            onClick={() => setActiveSection('activity')}
+          >
+            النشاطات
+          </button>
+          <button
+            className={`profile-tab ${activeSection === 'achievements' ? 'active' : ''}`}
+            onClick={() => setActiveSection('achievements')}
+          >
+            الإنجازات
+          </button>
+        </div>
+
+        {/* Content Section */}
+        <div className="profile-content-card">{activeSection === 'info' && (
 
         <div className="profile-body">
           {isEditing ? (
@@ -198,14 +281,78 @@ const Profile = () => {
                 </div>
               </div>
 
-              <button
-                className="btn btn-primary"
-                onClick={() => setIsEditing(true)}
-              >
-                تعديل البيانات
-              </button>
             </div>
           )}
+        </div>
+        )}
+
+        {activeSection === 'activity' && (
+          <div className="activity-section">
+            <h3 className="section-title-profile">النشاطات الأخيرة</h3>
+            <div className="activity-timeline">
+              <div className="activity-item">
+                <div className="activity-dot"></div>
+                <div className="activity-content">
+                  <h4>رفع ملف جديد</h4>
+                  <p>تم رفع ملف "محاضرة 5 - قواعد البيانات"</p>
+                  <span className="activity-time">منذ ساعتين</span>
+                </div>
+              </div>
+              <div className="activity-item">
+                <div className="activity-dot"></div>
+                <div className="activity-content">
+                  <h4>التسجيل في دورة</h4>
+                  <p>تم التسجيل في دورة "تطوير تطبيقات الويب"</p>
+                  <span className="activity-time">منذ 5 ساعات</span>
+                </div>
+              </div>
+              <div className="activity-item">
+                <div className="activity-dot"></div>
+                <div className="activity-content">
+                  <h4>تحميل ملف</h4>
+                  <p>تم تحميل "ملخص مادة الخوارزميات"</p>
+                  <span className="activity-time">منذ يوم</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {activeSection === 'achievements' && (
+          <div className="achievements-section">
+            <h3 className="section-title-profile">الإنجازات والشارات</h3>
+            <div className="achievements-grid">
+              <div className="achievement-card">
+                <div className="achievement-icon gold">🏆</div>
+                <h4>الملف الأول</h4>
+                <p>رفع أول ملف في المنصة</p>
+              </div>
+              <div className="achievement-card">
+                <div className="achievement-icon silver">⭐</div>
+                <h4>طالب نشط</h4>
+                <p>10 ملفات مرفوعة</p>
+              </div>
+              <div className="achievement-card">
+                <div className="achievement-icon bronze">📚</div>
+                <h4>متعلم دؤوب</h4>
+                <p>التسجيل في 3 دورات</p>
+              </div>
+              <div className="achievement-card locked">
+                <div className="achievement-icon">🔒</div>
+                <h4>الخبير</h4>
+                <p>رفع 50 ملف</p>
+              </div>
+            </div>
+
+            <div className="progress-section">
+              <h4>مستوى التقدم</h4>
+              <div className="level-bar">
+                <div className="level-progress" style={{width: '65%'}}></div>
+              </div>
+              <p className="level-text">المستوى 3 - 650/1000 نقطة للمستوى التالي</p>
+            </div>
+          </div>
+        )}
         </div>
       </div>
     </div>

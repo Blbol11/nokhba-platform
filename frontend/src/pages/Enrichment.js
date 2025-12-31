@@ -1,102 +1,57 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import { useToast } from '../context/ToastContext';
+import axios from 'axios';
 import './SubPage.css';
 
 const Enrichment = () => {
+  const { token } = useAuth();
+  const { showError } = useToast();
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [loading, setLoading] = useState(true);
+  const [enrichmentData, setEnrichmentData] = useState([]);
 
-  // محتوى تجريبي
-  const content = {
-    videos: [
-      {
-        id: 1,
-        title: 'مهارات التفكير النقدي والإبداعي',
-        description: 'سلسلة فيديوهات تعليمية عن تطوير مهارات التفكير',
-        duration: '45 دقيقة',
-        lessons: 8,
-        category: 'مهارات',
-        thumbnail: '🎥',
-        level: 'متوسط'
-      },
-      {
-        id: 2,
-        title: 'أساسيات البحث العلمي',
-        description: 'دورة شاملة في منهجية البحث العلمي',
-        duration: '1 ساعة و 20 دقيقة',
-        lessons: 12,
-        category: 'بحث علمي',
-        thumbnail: '📹',
-        level: 'مبتدئ'
-      },
-      {
-        id: 3,
-        title: 'الذكاء العاطفي والقيادة',
-        description: 'تطوير مهارات الذكاء العاطفي والقيادة الفعالة',
-        duration: '55 دقيقة',
-        lessons: 10,
-        category: 'قيادة',
-        thumbnail: '🎬',
-        level: 'متقدم'
-      }
-    ],
-    pdfs: [
-      {
-        id: 4,
-        title: 'دليل كتابة البحث العلمي',
-        description: 'دليل شامل لكتابة البحث العلمي بطريقة احترافية',
-        pages: 85,
-        category: 'بحث علمي',
-        size: '2.5 MB',
-        thumbnail: '📄'
-      },
-      {
-        id: 5,
-        title: 'مهارات إدارة الوقت',
-        description: 'كتيب عملي لتحسين مهارات إدارة الوقت',
-        pages: 42,
-        category: 'مهارات',
-        size: '1.8 MB',
-        thumbnail: '📋'
-      },
-      {
-        id: 6,
-        title: 'استراتيجيات التعلم الفعال',
-        description: 'أساليب وتقنيات التعلم الفعال والمثمر',
-        pages: 65,
-        category: 'تعليم',
-        size: '3.2 MB',
-        thumbnail: '📚'
-      }
-    ],
-    materials: [
-      {
-        id: 7,
-        title: 'حقيبة تدريبية: مهارات العرض والتقديم',
-        description: 'حقيبة تدريبية متكاملة لتطوير مهارات العرض',
-        type: 'حقيبة تدريبية',
-        category: 'مهارات',
-        files: 15,
-        thumbnail: '💼'
-      },
-      {
-        id: 8,
-        title: 'قوالب وأدوات البحث العلمي',
-        description: 'مجموعة من القوالب والأدوات المساعدة للباحثين',
-        type: 'أدوات',
-        category: 'بحث علمي',
-        files: 8,
-        thumbnail: '🛠️'
-      }
-    ]
+  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
+  useEffect(() => {
+    fetchEnrichmentData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const fetchEnrichmentData = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get(`${API_URL}/api/enrichment`);
+      setEnrichmentData(response.data.data || []);
+    } catch (err) {
+      showError(err.response?.data?.message || 'حدث خطأ في جلب المحتوى الإثرائي');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const categories = ['الكل', 'مهارات', 'بحث علمي', 'قيادة', 'تعليم'];
 
-  const filterContent = (items) => {
+  const filterByCategory = (items) => {
     if (selectedCategory === 'all' || selectedCategory === 'الكل') {
       return items;
     }
     return items.filter(item => item.category === selectedCategory);
+  };
+
+  // تصنيف المحتوى حسب النوع
+  const videos = enrichmentData.filter(item => item.type === 'video');
+  const pdfs = enrichmentData.filter(item => item.type === 'pdf');
+  const materials = enrichmentData.filter(item => item.type === 'material');
+
+  const getThumbnail = (type) => {
+    switch(type) {
+      case 'video': return '🎥';
+      case 'pdf': return '📄';
+      case 'material': return '💼';
+      default: return '📦';
+    }
   };
 
   return (
@@ -125,97 +80,143 @@ const Enrichment = () => {
         </div>
 
         {/* Videos Section */}
-        <section className="content-section">
-          <h2 className="section-title">
-            <span className="section-icon">🎥</span>
-            الفيديوهات التعليمية
-          </h2>
-          <div className="content-grid">
-            {filterContent(content.videos).map(video => (
-              <div key={video.id} className="content-card video-card">
-                <div className="card-thumbnail">{video.thumbnail}</div>
-                <div className="card-content">
-                  <span className="content-badge">{video.category}</span>
-                  <h3>{video.title}</h3>
-                  <p>{video.description}</p>
+        {filterByCategory(videos).length > 0 && (
+          <section className="content-section">
+            <h2 className="section-title">
+              <span className="section-icon">🎥</span>
+              الفيديوهات التعليمية
+            </h2>
+            {loading ? (
+              <div className="loading-spinner">جاري التحميل...</div>
+            ) : (
+              <div className="content-grid">
+                {filterByCategory(videos).map(video => (
+                  <div key={video._id} className="content-card video-card">
+                    <div className="card-thumbnail">{getThumbnail(video.type)}</div>
+                    <div className="card-content">
+                      <span className="content-badge">{video.category || 'عام'}</span>
+                      <h3>{video.title}</h3>
+                      <p>{video.description}</p>
 
-                  <div className="content-meta">
-                    <span>⏱️ {video.duration}</span>
-                    <span>📚 {video.lessons} دروس</span>
-                    <span className={`level-badge ${video.level}`}>{video.level}</span>
+                      <div className="content-meta">
+                        {video.duration && <span>⏱️ {video.duration}</span>}
+                        {video.level && <span className={`level-badge ${video.level}`}>{video.level}</span>}
+                        <span>👁️ {video.views || 0} مشاهدة</span>
+                      </div>
+
+                      <a
+                        href={video.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn btn-primary btn-block"
+                      >
+                        مشاهدة الدورة
+                      </a>
+                    </div>
                   </div>
-
-                  <button className="btn btn-primary btn-block">
-                    مشاهدة الدورة
-                  </button>
-                </div>
+                ))}
               </div>
-            ))}
-          </div>
-        </section>
+            )}
+          </section>
+        )}
 
         {/* PDFs Section */}
-        <section className="content-section">
-          <h2 className="section-title">
-            <span className="section-icon">📄</span>
-            ملفات PDF
-          </h2>
-          <div className="content-grid">
-            {filterContent(content.pdfs).map(pdf => (
-              <div key={pdf.id} className="content-card pdf-card">
-                <div className="card-thumbnail">{pdf.thumbnail}</div>
-                <div className="card-content">
-                  <span className="content-badge">{pdf.category}</span>
-                  <h3>{pdf.title}</h3>
-                  <p>{pdf.description}</p>
+        {filterByCategory(pdfs).length > 0 && (
+          <section className="content-section">
+            <h2 className="section-title">
+              <span className="section-icon">📄</span>
+              ملفات PDF
+            </h2>
+            {loading ? (
+              <div className="loading-spinner">جاري التحميل...</div>
+            ) : (
+              <div className="content-grid">
+                {filterByCategory(pdfs).map(pdf => (
+                  <div key={pdf._id} className="content-card pdf-card">
+                    <div className="card-thumbnail">{getThumbnail(pdf.type)}</div>
+                    <div className="card-content">
+                      <span className="content-badge">{pdf.category || 'عام'}</span>
+                      <h3>{pdf.title}</h3>
+                      <p>{pdf.description}</p>
 
-                  <div className="content-meta">
-                    <span>📖 {pdf.pages} صفحة</span>
-                    <span>💾 {pdf.size}</span>
-                  </div>
+                      <div className="content-meta">
+                        {pdf.level && <span className={`level-badge ${pdf.level}`}>{pdf.level}</span>}
+                        <span>📥 {pdf.downloads || 0} تحميل</span>
+                      </div>
 
-                  <div className="card-actions">
-                    <button className="btn btn-primary">
-                      عرض
-                    </button>
-                    <button className="btn btn-secondary">
-                      تحميل
-                    </button>
+                      <div className="card-actions">
+                        <a
+                          href={pdf.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="btn btn-primary"
+                        >
+                          عرض
+                        </a>
+                        <a
+                          href={pdf.url}
+                          download
+                          className="btn btn-secondary"
+                        >
+                          تحميل
+                        </a>
+                      </div>
+                    </div>
                   </div>
-                </div>
+                ))}
               </div>
-            ))}
-          </div>
-        </section>
+            )}
+          </section>
+        )}
 
         {/* Materials Section */}
-        <section className="content-section">
-          <h2 className="section-title">
-            <span className="section-icon">📦</span>
-            مواد داعمة
-          </h2>
-          <div className="content-grid">
-            {filterContent(content.materials).map(material => (
-              <div key={material.id} className="content-card material-card">
-                <div className="card-thumbnail">{material.thumbnail}</div>
-                <div className="card-content">
-                  <span className="content-badge">{material.category}</span>
-                  <h3>{material.title}</h3>
-                  <p>{material.description}</p>
+        {filterByCategory(materials).length > 0 && (
+          <section className="content-section">
+            <h2 className="section-title">
+              <span className="section-icon">📦</span>
+              مواد داعمة
+            </h2>
+            {loading ? (
+              <div className="loading-spinner">جاري التحميل...</div>
+            ) : (
+              <div className="content-grid">
+                {filterByCategory(materials).map(material => (
+                  <div key={material._id} className="content-card material-card">
+                    <div className="card-thumbnail">{getThumbnail(material.type)}</div>
+                    <div className="card-content">
+                      <span className="content-badge">{material.category || 'عام'}</span>
+                      <h3>{material.title}</h3>
+                      <p>{material.description}</p>
 
-                  <div className="content-meta">
-                    <span>📁 {material.type}</span>
-                    <span>📄 {material.files} ملفات</span>
+                      <div className="content-meta">
+                        {material.level && <span className={`level-badge ${material.level}`}>{material.level}</span>}
+                        <span>📥 {material.downloads || 0} تحميل</span>
+                      </div>
+
+                      <a
+                        href={material.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn btn-primary btn-block"
+                      >
+                        تحميل الحزمة
+                      </a>
+                    </div>
                   </div>
-
-                  <button className="btn btn-primary btn-block">
-                    تحميل الحزمة
-                  </button>
-                </div>
+                ))}
               </div>
-            ))}
+            )}
+          </section>
+        )}
+
+        {/* Empty State */}
+        {!loading && enrichmentData.length === 0 && (
+          <div className="empty-state">
+            <div className="empty-icon">📚</div>
+            <h3>لا يوجد محتوى إثرائي حالياً</h3>
+            <p>سيتم إضافة محتوى إثرائي قريباً</p>
           </div>
-        </section>
+        )}
 
         {/* Benefits Section */}
         <section className="benefits-section">

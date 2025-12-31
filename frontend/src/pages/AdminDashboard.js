@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { useToast } from '../context/ToastContext';
 import axios from 'axios';
 import './AdminDashboard.css';
 
 const AdminDashboard = () => {
   const { user, token } = useAuth();
+  const { showSuccess, showError } = useToast();
   const [stats, setStats] = useState(null);
   const [users, setUsers] = useState([]);
   const [files, setFiles] = useState([]);
@@ -131,9 +133,10 @@ const AdminDashboard = () => {
         { isActive: !currentStatus },
         { headers: { Authorization: `Bearer ${token}` } }
       );
+      showSuccess('تم تحديث حالة المستخدم بنجاح');
       fetchUsers();
     } catch (err) {
-      alert(err.response?.data?.message || 'حدث خطأ');
+      showError(err.response?.data?.message || 'حدث خطأ في تحديث الحالة');
     }
   };
 
@@ -146,9 +149,10 @@ const AdminDashboard = () => {
         { role: newRole },
         { headers: { Authorization: `Bearer ${token}` } }
       );
+      showSuccess('تم تغيير صلاحية المستخدم بنجاح');
       fetchUsers();
     } catch (err) {
-      alert(err.response?.data?.message || 'حدث خطأ');
+      showError(err.response?.data?.message || 'حدث خطأ في تغيير الصلاحية');
     }
   };
 
@@ -159,9 +163,10 @@ const AdminDashboard = () => {
       await axios.delete(`${API_URL}/api/admin/users/${userId}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
+      showSuccess('تم حذف المستخدم بنجاح');
       fetchUsers();
     } catch (err) {
-      alert(err.response?.data?.message || 'حدث خطأ');
+      showError(err.response?.data?.message || 'حدث خطأ في حذف المستخدم');
     }
   };
 
@@ -172,9 +177,10 @@ const AdminDashboard = () => {
       await axios.delete(`${API_URL}/api/admin/files/${fileId}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
+      showSuccess('تم حذف الملف بنجاح');
       fetchFiles();
     } catch (err) {
-      alert(err.response?.data?.message || 'حدث خطأ');
+      showError(err.response?.data?.message || 'حدث خطأ في حذف الملف');
     }
   };
 
@@ -185,9 +191,10 @@ const AdminDashboard = () => {
       await axios.delete(`${API_URL}/api/enrichment/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
+      showSuccess('تم حذف المحتوى بنجاح');
       fetchEnrichment();
     } catch (err) {
-      alert(err.response?.data?.message || 'حدث خطأ');
+      showError(err.response?.data?.message || 'حدث خطأ في حذف المحتوى');
     }
   };
 
@@ -198,9 +205,10 @@ const AdminDashboard = () => {
       await axios.delete(`${API_URL}/api/courses/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
+      showSuccess('تم حذف الدورة بنجاح');
       fetchCourses();
     } catch (err) {
-      alert(err.response?.data?.message || 'حدث خطأ');
+      showError(err.response?.data?.message || 'حدث خطأ في حذف الدورة');
     }
   };
 
@@ -211,9 +219,10 @@ const AdminDashboard = () => {
       await axios.delete(`${API_URL}/api/research/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
+      showSuccess('تم حذف الطلب بنجاح');
       fetchResearch();
     } catch (err) {
-      alert(err.response?.data?.message || 'حدث خطأ');
+      showError(err.response?.data?.message || 'حدث خطأ في حذف الطلب');
     }
   };
 
@@ -224,9 +233,10 @@ const AdminDashboard = () => {
       await axios.delete(`${API_URL}/api/inquiries/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
+      showSuccess('تم حذف الاستفسار بنجاح');
       fetchInquiries();
     } catch (err) {
-      alert(err.response?.data?.message || 'حدث خطأ');
+      showError(err.response?.data?.message || 'حدث خطأ في حذف الاستفسار');
     }
   };
 

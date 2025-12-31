@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap');
 
 :root {
@@ -6,25 +7,29 @@
   --primary-dark: #006A93;          /* أزرق داكن للـ hover */
   --primary-light: #33A5D2;         /* أزرق فاتح للتمييز */
   --secondary-color: #005879;       /* اللون الثانوي - أزرق عميق */
+  --accent-gold: #C5A572;           /* لون ذهبي أكاديمي فخم */
 
   /* ألوان الخلفيات */
   --content-bg: #F8FAFB;            /* خلفية رمادي فاتح جداً */
   --card-bg: #FFFFFF;               /* أبيض نقي للكروت */
   --bg-color: #F8FAFB;
   --light-color: #F8FAFB;
+  --bg-soft-blue: rgba(0, 141, 195, 0.03);
 
   /* ألوان النصوص */
   --primary-text: #1A202C;          /* نص رمادي داكن */
-  --secondary-text: #4A5568;        /* نص رمادي متوسط */
+  --secondary-text: #64748b;        /* نص رمادي متوسط دافئ */
   --text-color: #1A202C;
   --dark-color: #1A202C;
+  --text-muted: #94a3b8;
 
   /* ألوان الحدود */
   --border-color: #E2E8F0;          /* حدود رمادي فاتح */
   --border-light: #F7FAFC;
+  --border-primary: rgba(0, 141, 195, 0.2);
 
   /* ألوان الحالات */
-  --success-color: #10B981;         /* أخضر للنجاح */
+  --success-color: #2E7D32;         /* أخضر للنجاح */
   --danger-color: #EF4444;          /* أحمر للخطر */
   --warning-color: #F59E0B;         /* برتقالي للتحذير */
   --info-color: #008DC3;            /* أزرق للمعلومات */
@@ -34,10 +39,42 @@
   --sidebar-color: #005879;
   --accent-color: #33A5D2;
 
-  /* تدرجات موحدة */
+  /* تدرجات محسّنة */
   --gradient-primary: linear-gradient(135deg, #008DC3 0%, #006A93 100%);
   --gradient-secondary: linear-gradient(135deg, #005879 0%, #003D52 100%);
   --gradient-light: linear-gradient(135deg, #33A5D2 0%, #008DC3 100%);
+  --gradient-elegant: linear-gradient(135deg, #008DC3 0%, #005879 50%, #003d54 100%);
+  --gradient-soft: linear-gradient(180deg, rgba(0,141,195,0.05) 0%, rgba(0,141,195,0) 100%);
+  --gradient-card: linear-gradient(145deg, #ffffff 0%, #f8fcff 100%);
+  --gradient-gold: linear-gradient(135deg, #C5A572 0%, #A68B5B 100%);
+
+  /* ظلال محسّنة */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 12px rgba(0, 141, 195, 0.1);
+  --shadow-lg: 0 8px 24px rgba(0, 141, 195, 0.15);
+  --shadow-xl: 0 12px 40px rgba(0, 141, 195, 0.2);
+  --shadow-primary: 0 4px 20px rgba(0, 141, 195, 0.3);
+
+  /* أنصاف أقطار موحدة */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+
+  /* مسافات */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+
+  /* انتقالات */
+  --transition-fast: 0.15s ease;
+  --transition-base: 0.3s ease;
+  --transition-slow: 0.5s ease;
+  --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 * {
@@ -47,12 +84,14 @@
 }
 
 body {
-  font-family: 'Tajawal', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: 'IBM Plex Sans Arabic', 'Tajawal', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   background-color: var(--bg-color);
   color: var(--text-color);
   line-height: 1.8;
   direction: rtl;
   font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Typography */
@@ -146,17 +185,63 @@ a {
 
 /* Cards */
 .card {
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  padding: 1.5rem;
-  margin-bottom: 1.5rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: var(--gradient-card);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: var(--spacing-xl);
+  margin-bottom: var(--spacing-lg);
+  transition: all var(--transition-base) var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gradient-primary);
+  opacity: 0;
+  transition: opacity var(--transition-base);
 }
 
 .card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+/* Card Premium */
+.card-premium {
+  background: white;
+  border: 1px solid rgba(0,141,195,0.1);
+  border-radius: var(--radius-lg);
+  box-shadow:
+    var(--shadow-md),
+    0 0 0 1px rgba(0,141,195,0.04);
+  transition: all 0.4s var(--transition-smooth);
+}
+
+.card-premium:hover {
+  transform: translateY(-8px);
+  box-shadow:
+    var(--shadow-xl),
+    0 0 0 1px rgba(0,141,195,0.1);
+}
+
+/* Glass Card */
+.card-glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
 }
 
 /* Alerts */
@@ -210,6 +295,88 @@ a {
 .p-3 { padding: 1.5rem; }
 .p-4 { padding: 2rem; }
 
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Animation Classes */
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.6s ease-out;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.6s ease-out;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
 /* Loading Spinner */
 .spinner {
   border: 4px solid var(--light-color);
@@ -226,50 +393,113 @@ a {
   100% { transform: rotate(360deg); }
 }
 
+/* Loading Skeleton */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--border-color) 25%,
+    var(--border-light) 50%,
+    var(--border-color) 75%
+  );
+  background-size: 200% 100%;
+  animation: loading 1.5s ease-in-out infinite;
+  border-radius: var(--radius-sm);
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.skeleton-text {
+  height: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.skeleton-title {
+  height: 2rem;
+  margin-bottom: 1rem;
+  width: 60%;
+}
+
+.skeleton-card {
+  height: 200px;
+  border-radius: var(--radius-lg);
+}
+
 /* Dark Mode */
 body.dark-mode {
   /* ألوان أساسية في الوضع الليلي */
-  --primary-color: #33A5D2;         /* أزرق فاتح للوضع الليلي */
+  --primary-color: #3b9ec9;         /* أزرق فاتح أكثر للوضع الليلي */
   --primary-dark: #008DC3;
   --primary-light: #5BC0DE;
   --secondary-color: #006A93;
+  --accent-gold: #D4AF76;
 
   /* خلفيات الوضع الليلي */
-  --content-bg: #1A1A1A;
-  --card-bg: #2D2D2D;
-  --bg-color: #121212;
-  --light-color: #2D2D2D;
+  --content-bg: #1A1F2E;
+  --card-bg: #252B3B;
+  --bg-color: #0f172a;
+  --light-color: #1e293b;
+  --bg-soft-blue: rgba(59, 158, 201, 0.05);
 
   /* نصوص الوضع الليلي */
-  --primary-text: #F0F0F0;
-  --secondary-text: #B0B0B0;
-  --text-color: #F0F0F0;
-  --dark-color: #F0F0F0;
+  --primary-text: #f1f5f9;
+  --secondary-text: #cbd5e1;
+  --text-color: #f1f5f9;
+  --dark-color: #f1f5f9;
+  --text-muted: #94a3b8;
 
   /* حدود الوضع الليلي */
-  --border-color: #404040;
-  --border-light: #333333;
+  --border-color: #334155;
+  --border-light: #1e293b;
+  --border-primary: rgba(59, 158, 201, 0.2);
 
   /* للتوافق */
-  --header-color: #33A5D2;
+  --header-color: #3b9ec9;
   --sidebar-color: #006A93;
   --accent-color: #5BC0DE;
 
   /* تدرجات الوضع الليلي */
-  --gradient-primary: linear-gradient(135deg, #33A5D2 0%, #008DC3 100%);
+  --gradient-primary: linear-gradient(135deg, #3b9ec9 0%, #008DC3 100%);
   --gradient-secondary: linear-gradient(135deg, #006A93 0%, #004D6B 100%);
-  --gradient-light: linear-gradient(135deg, #5BC0DE 0%, #33A5D2 100%);
+  --gradient-light: linear-gradient(135deg, #5BC0DE 0%, #3b9ec9 100%);
+  --gradient-elegant: linear-gradient(135deg, #3b9ec9 0%, #006A93 50%, #004d6b 100%);
+  --gradient-soft: linear-gradient(180deg, rgba(59,158,201,0.08) 0%, rgba(59,158,201,0) 100%);
+  --gradient-card: linear-gradient(145deg, #252B3B 0%, #1e293b 100%);
+  --gradient-gold: linear-gradient(135deg, #D4AF76 0%, #B8965F 100%);
+
+  /* ظلال الوضع الليلي */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 12px 40px rgba(0, 0, 0, 0.6);
+  --shadow-primary: 0 4px 20px rgba(59, 158, 201, 0.3);
 }
 
 body.dark-mode {
-  background-color: #121212;
-  color: #f0f0f0;
+  background-color: var(--bg-color);
+  color: var(--text-color);
 }
 
 body.dark-mode .card {
-  background: #2d2d2d;
-  color: #f0f0f0;
-  border-color: #404040;
+  background: var(--gradient-card);
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+
+body.dark-mode .card-premium {
+  background: var(--card-bg);
+  border-color: rgba(59, 158, 201, 0.15);
+}
+
+body.dark-mode .card-glass {
+  background: rgba(37, 43, 59, 0.7);
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
 body.dark-mode h1,
@@ -278,5 +508,102 @@ body.dark-mode h3,
 body.dark-mode h4,
 body.dark-mode h5,
 body.dark-mode h6 {
-  color: #f0f0f0;
+  color: var(--text-color);
+}
+
+body.dark-mode .skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--border-color) 25%,
+    var(--border-light) 50%,
+    var(--border-color) 75%
+  );
+  background-size: 200% 100%;
+}
+
+/* ============================================
+   Empty States - حالات الفراغ الجميلة
+   ============================================ */
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  max-width: 500px;
+  margin: 3rem auto;
+  animation: fadeInUp 0.6s ease;
+}
+
+.empty-icon {
+  font-size: 5rem;
+  margin-bottom: 1.5rem;
+  opacity: 0.6;
+  animation: float 3s ease-in-out infinite;
+}
+
+.empty-state h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--primary-text);
+  margin-bottom: 0.75rem;
+}
+
+.empty-state p {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.empty-state .btn {
+  margin-top: 1rem;
+}
+
+/* Loading Spinner */
+.loading-spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  font-size: 1.25rem;
+  color: var(--text-muted);
+  gap: 1rem;
+}
+
+.loading-spinner::before {
+  content: '';
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--border-color);
+  border-top-color: var(--primary-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Empty State Variants */
+.empty-state.error {
+  color: var(--danger-color);
+}
+
+.empty-state.error .empty-icon {
+  color: var(--danger-color);
+}
+
+.empty-state.success {
+  color: var(--success-color);
+}
+
+.empty-state.success .empty-icon {
+  color: var(--success-color);
+}
+
+/* Dark Mode للـ Empty States */
+body.dark-mode .empty-state h3 {
+  color: var(--text-color);
+}
+
+body.dark-mode .empty-state p {
+  color: var(--text-muted);
 }
