@@ -7,7 +7,7 @@
   --primary-dark: #006A93;          /* أزرق داكن للـ hover */
   --primary-light: #33A5D2;         /* أزرق فاتح للتمييز */
   --secondary-color: #005879;       /* اللون الثانوي - أزرق عميق */
-  --accent-gold: #C5A572;           /* لون ذهبي أكاديمي فخم */
+  --accent-gold: #D4AF37;           /* لون ذهبي أكاديمي محسّن للقراءة */
 
   /* ألوان الخلفيات */
   --content-bg: #F8FAFB;            /* خلفية رمادي فاتح جداً */
@@ -39,14 +39,14 @@
   --sidebar-color: #005879;
   --accent-color: #33A5D2;
 
-  /* تدرجات محسّنة */
-  --gradient-primary: linear-gradient(135deg, #008DC3 0%, #006A93 100%);
-  --gradient-secondary: linear-gradient(135deg, #005879 0%, #003D52 100%);
-  --gradient-light: linear-gradient(135deg, #33A5D2 0%, #008DC3 100%);
-  --gradient-elegant: linear-gradient(135deg, #008DC3 0%, #005879 50%, #003d54 100%);
-  --gradient-soft: linear-gradient(180deg, rgba(0,141,195,0.05) 0%, rgba(0,141,195,0) 100%);
-  --gradient-card: linear-gradient(145deg, #ffffff 0%, #f8fcff 100%);
-  --gradient-gold: linear-gradient(135deg, #C5A572 0%, #A68B5B 100%);
+  /* تدرجات محسّنة ومخففة */
+  --gradient-primary: linear-gradient(135deg, #008DC3 0%, #0099D6 100%);
+  --gradient-secondary: linear-gradient(135deg, #006A93 0%, #008DC3 100%);
+  --gradient-light: linear-gradient(135deg, #33A5D2 0%, #66BCE3 100%);
+  --gradient-elegant: linear-gradient(135deg, #008DC3 0%, #0099D6 100%);
+  --gradient-soft: linear-gradient(180deg, rgba(0,141,195,0.03) 0%, rgba(0,141,195,0) 100%);
+  --gradient-card: linear-gradient(145deg, #ffffff 0%, #fafcff 100%);
+  --gradient-gold: linear-gradient(135deg, #D4AF37 0%, #F0D78C 100%);
 
   /* ظلال محسّنة */
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
@@ -87,17 +87,19 @@ body {
   font-family: 'IBM Plex Sans Arabic', 'Tajawal', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   background-color: var(--bg-color);
   color: var(--text-color);
-  line-height: 1.8;
+  line-height: 1.9;
   direction: rtl;
   font-weight: 400;
+  font-size: 16px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Typography */
+/* Typography - محسّن للقراءة */
 h1, h2, h3, h4, h5, h6 {
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
   color: var(--dark-color);
+  line-height: 1.4;
   font-family: 'Tajawal', sans-serif;
   font-weight: 700;
 }
@@ -109,9 +111,22 @@ a {
 
 /* Container */
 .container {
-  max-width: 1200px;
+  max-width: 1280px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 24px;
+}
+
+/* نصوص محسّنة */
+p {
+  line-height: 2;
+  margin-bottom: 1.25rem;
+  color: var(--secondary-text);
+}
+
+.lead {
+  font-size: 1.15rem;
+  font-weight: 500;
+  line-height: 2.1;
 }
 
 /* Buttons */

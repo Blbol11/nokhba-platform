@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
+import axios from 'axios';
 import './Home.css';
 
 const Home = () => {
@@ -11,35 +12,47 @@ const Home = () => {
     courses: 0,
     hours: 0
   });
+  const [loading, setLoading] = useState(true);
+
+  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
   useEffect(() => {
-    // Animated counter effect
-    const targetStats = {
-      students: 1250,
-      files: 3400,
-      courses: 85,
-      hours: 12500
-    };
-
-    const duration = 2000;
-    const steps = 60;
-    const increment = duration / steps;
-
-    Object.keys(targetStats).forEach(key => {
-      let current = 0;
-      const target = targetStats[key];
-      const step = target / steps;
-
-      const timer = setInterval(() => {
-        current += step;
-        if (current >= target) {
-          current = target;
-          clearInterval(timer);
-        }
-        setStats(prev => ({ ...prev, [key]: Math.floor(current) }));
-      }, increment);
-    });
+    fetchStats();
   }, []);
+
+  const fetchStats = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/api/public/stats`);
+      const targetStats = response.data.data;
+
+      const duration = 2000;
+      const steps = 60;
+      const increment = duration / steps;
+
+      Object.keys(targetStats).forEach(key => {
+        let current = 0;
+        const target = targetStats[key];
+        const step = target / steps;
+
+        const timer = setInterval(() => {
+          current += step;
+          if (current >= target) {
+            current = target;
+            clearInterval(timer);
+          }
+          setStats(prev => ({ ...prev, [key]: Math.floor(current) }));
+        }, increment);
+      });
+
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching stats:', error);
+      // في حالة الخطأ، استخدم قيم افتراضية
+      const defaultStats = { students: 1250, files: 3400, courses: 85, hours: 12500 };
+      setStats(defaultStats);
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="home-page">

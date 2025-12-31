@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
@@ -8,10 +8,21 @@ const Navbar = () => {
   const { isAuthenticated, user, logout } = useContext(AuthContext);
   const { isDark, toggleTheme } = useTheme();
   const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState('');
+  const [showSearch, setShowSearch] = useState(false);
 
   const handleLogout = () => {
     logout();
     navigate('/login');
+  };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/files?search=${encodeURIComponent(searchQuery)}`);
+      setSearchQuery('');
+      setShowSearch(false);
+    }
   };
 
   return (
@@ -20,11 +31,7 @@ const Navbar = () => {
         <div className="navbar-content">
           <Link to="/" className="navbar-brand">
             <div className="brand-logo">
-              <svg viewBox="0 0 50 50" className="logo-icon">
-                <path d="M25 5 L45 15 L45 35 L25 45 L5 35 L5 15 Z" fill="currentColor" opacity="0.2"/>
-                <path d="M25 10 L40 18 L40 32 L25 40 L10 32 L10 18 Z" fill="none" stroke="currentColor" strokeWidth="2"/>
-                <circle cx="25" cy="25" r="8" fill="currentColor"/>
-              </svg>
+              <img src="/logo.jpg" alt="شعار البرنامج" className="program-logo" />
               <div className="brand-text">
                 <h1>نُخبة</h1>
                 <span className="brand-subtitle">منصة التميز الأكاديمي</span>
@@ -48,6 +55,32 @@ const Navbar = () => {
           </div>
 
           <div className="navbar-end">
+            {/* Search */}
+            <div className="search-container">
+              {showSearch ? (
+                <form onSubmit={handleSearch} className="search-form">
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="ابحث في الملفات..."
+                    className="search-input"
+                    autoFocus
+                  />
+                  <button type="submit" className="search-btn">
+                    🔍
+                  </button>
+                  <button type="button" onClick={() => setShowSearch(false)} className="search-close">
+                    ✕
+                  </button>
+                </form>
+              ) : (
+                <button onClick={() => setShowSearch(true)} className="search-toggle" title="بحث">
+                  🔍
+                </button>
+              )}
+            </div>
+
             {isAuthenticated && user?.role === 'admin' && (
               <Link to="/admin" className="nav-link admin-badge">
                 <span className="nav-icon">⚙️</span>

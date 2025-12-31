@@ -45,6 +45,16 @@
   filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
 }
 
+.program-logo {
+  height: 60px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
+  background: white;
+  padding: 4px;
+  border-radius: var(--radius-md);
+}
+
 .brand-text h1 {
   color: white;
   font-size: 1.8rem;
@@ -376,5 +386,94 @@ body.dark-mode .nav-link:hover {
 
   .nav-link {
     padding: 0.6rem;
+  }
+}
+
+/* Search Styles */
+.search-container {
+  position: relative;
+}
+
+.search-toggle {
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  padding: 0.7rem;
+  font-size: 1.2rem;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  backdrop-filter: blur(10px);
+}
+
+.search-toggle:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.05);
+}
+
+.search-form {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: white;
+  padding: 0.5rem;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  animation: slideInRight 0.3s ease;
+}
+
+body.dark-mode .search-form {
+  background: var(--card-bg);
+}
+
+.search-input {
+  border: none;
+  outline: none;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-family: inherit;
+  background: transparent;
+  color: var(--text-color);
+  min-width: 200px;
+}
+
+.search-input::placeholder {
+  color: var(--text-muted);
+}
+
+.search-btn,
+.search-close {
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: transform var(--transition-fast);
+  border-radius: var(--radius-sm);
+}
+
+.search-btn:hover,
+.search-close:hover {
+  background: var(--bg-soft-blue);
+  transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+  .search-input {
+    min-width: 150px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .search-input {
+    min-width: 120px;
+  }
+
+  .search-form {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 0.5rem;
+    z-index: 100;
   }
 }

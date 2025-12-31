@@ -58,6 +58,7 @@ app.use('/api/enrichment', require('./routes/enrichment'));
 app.use('/api/courses', require('./routes/courses'));
 app.use('/api/research', require('./routes/research'));
 app.use('/api/inquiries', require('./routes/inquiries'));
+app.use('/api/public', require('./routes/public'));
 
 // الصفحة الرئيسية
 app.get('/', (req, res) => {
