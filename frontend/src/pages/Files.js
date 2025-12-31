@@ -11,6 +11,10 @@ const Files = () => {
   const [message, setMessage] = useState({ type: '', text: '' });
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedYear, setSelectedYear] = useState('');
+  const [selectedFileType, setSelectedFileType] = useState('');
+  const [sortBy, setSortBy] = useState('newest');
+  const [showFilters, setShowFilters] = useState(false);
   const [showUploadModal, setShowUploadModal] = useState(false);
 
   const [uploadData, setUploadData] = useState({
@@ -22,10 +26,19 @@ const Files = () => {
   });
 
   const categories = ['محاضرات', 'واجبات', 'مشاريع', 'كتب', 'ملخصات', 'أخرى'];
+  const years = ['السنة التحضيرية', 'السنة الأولى', 'السنة الثانية', 'السنة الثالثة', 'السنة الرابعة', 'السنة الخامسة'];
+  const fileTypes = ['PDF', 'DOC', 'DOCX', 'PPT', 'PPTX', 'XLS', 'XLSX', 'ZIP', 'RAR'];
+  const sortOptions = [
+    { value: 'newest', label: 'الأحدث أولاً' },
+    { value: 'oldest', label: 'الأقدم أولاً' },
+    { value: 'mostDownloaded', label: 'الأكثر تحميلاً' },
+    { value: 'mostViewed', label: 'الأكثر مشاهدة' },
+    { value: 'title', label: 'حسب العنوان' }
+  ];
 
   useEffect(() => {
     fetchFiles();
-  }, [searchTerm, selectedCategory]);
+  }, [searchTerm, selectedCategory, selectedYear, selectedFileType, sortBy]);
 
   const fetchFiles = async () => {
     try {
@@ -33,6 +46,9 @@ const Files = () => {
       const params = {};
       if (searchTerm) params.search = searchTerm;
       if (selectedCategory) params.category = selectedCategory;
+      if (selectedYear) params.year = selectedYear;
+      if (selectedFileType) params.fileType = selectedFileType;
+      if (sortBy) params.sort = sortBy;
 
       const data = await getFiles(params);
       setFiles(data.files);
@@ -41,6 +57,23 @@ const Files = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const clearFilters = () => {
+    setSearchTerm('');
+    setSelectedCategory('');
+    setSelectedYear('');
+    setSelectedFileType('');
+    setSortBy('newest');
+  };
+
+  const activeFiltersCount = () => {
+    let count = 0;
+    if (selectedCategory) count++;
+    if (selectedYear) count++;
+    if (selectedFileType) count++;
+    if (sortBy !== 'newest') count++;
+    return count;
   };
 
   const handleFileChange = (e) => {
@@ -136,24 +169,81 @@ const Files = () => {
         )}
 
         <div className="files-filters">
-          <input
-            type="text"
-            className="form-control search-input"
-            placeholder="ابحث عن ملف..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
+          <div className="filters-main">
+            <input
+              type="text"
+              className="form-control search-input"
+              placeholder="ابحث عن ملف..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
 
-          <select
-            className="form-control category-select"
-            value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)}
-          >
-            <option value="">جميع التصنيفات</option>
-            {categories.map(cat => (
-              <option key={cat} value={cat}>{cat}</option>
-            ))}
-          </select>
+            <button
+              className="btn btn-filters"
+              onClick={() => setShowFilters(!showFilters)}
+            >
+              🔍 فلاتر متقدمة
+              {activeFiltersCount() > 0 && (
+                <span className="filters-badge">{activeFiltersCount()}</span>
+              )}
+            </button>
+
+            <select
+              className="form-control sort-select"
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+            >
+              {sortOptions.map(option => (
+                <option key={option.value} value={option.value}>{option.label}</option>
+              ))}
+            </select>
+          </div>
+
+          {showFilters && (
+            <div className="filters-advanced">
+              <select
+                className="form-control"
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+              >
+                <option value="">جميع التصنيفات</option>
+                {categories.map(cat => (
+                  <option key={cat} value={cat}>{cat}</option>
+                ))}
+              </select>
+
+              <select
+                className="form-control"
+                value={selectedYear}
+                onChange={(e) => setSelectedYear(e.target.value)}
+              >
+                <option value="">جميع السنوات</option>
+                {years.map(year => (
+                  <option key={year} value={year}>{year}</option>
+                ))}
+              </select>
+
+              <select
+                className="form-control"
+                value={selectedFileType}
+                onChange={(e) => setSelectedFileType(e.target.value)}
+              >
+                <option value="">جميع أنواع الملفات</option>
+                {fileTypes.map(type => (
+                  <option key={type} value={type}>{type}</option>
+                ))}
+              </select>
+
+              {activeFiltersCount() > 0 && (
+                <button
+                  className="btn btn-clear-filters"
+                  onClick={clearFilters}
+                >
+                  ✕ مسح الفلاتر
+                </button>
+              )}
+            </div>
+          )}
         </div>
 
         {loading ? (

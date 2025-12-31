@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
+import axios from 'axios';
 import './Profile.css';
 
 const Profile = () => {
@@ -14,15 +15,38 @@ const Profile = () => {
     university: user?.university || '',
     bio: user?.bio || ''
   });
+  const [userStats, setUserStats] = useState({
+    uploadedFiles: 0,
+    downloads: 0,
+    enrolledCourses: 0,
+    completedCourses: 0,
+    achievements: 0,
+    points: 0
+  });
+  const [loading, setLoading] = useState(true);
 
-  // Mock data for stats
-  const userStats = {
-    uploadedFiles: 12,
-    downloads: 45,
-    enrolledCourses: 3,
-    completedCourses: 1,
-    achievements: 5,
-    points: 850
+  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
+  useEffect(() => {
+    if (user) {
+      fetchUserStats();
+    }
+  }, [user]);
+
+  const fetchUserStats = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.get(`${API_URL}/api/users/stats`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      setUserStats(response.data.data);
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching user stats:', error);
+      setLoading(false);
+    }
   };
 
   const handleChange = (e) => {
@@ -32,11 +56,31 @@ const Profile = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // TODO: إضافة API call لتحديث البيانات
-    console.log('Update profile:', formData);
-    setIsEditing(false);
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.put(
+        `${API_URL}/api/users/profile`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
+
+      if (response.data.success) {
+        // تحديث بيانات المستخدم في السياق
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+        alert('تم تحديث الملف الشخصي بنجاح');
+        setIsEditing(false);
+        window.location.reload(); // إعادة تحميل الصفحة لتحديث البيانات
+      }
+    } catch (error) {
+      console.error('Error updating profile:', error);
+      alert('حدث خطأ في تحديث الملف الشخصي');
+    }
   };
 
   if (!user) {
