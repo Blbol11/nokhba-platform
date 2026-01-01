@@ -7,11 +7,17 @@
      لا تغيّر هذه الألوان بعد اعتمادها
      ═══════════════════════════════════════════════════════════ */
 
-  /* الألوان الأساسية */
+  /* الألوان الأساسية - محسّنة */
   --primary-color: #008DC3;         /* KSU Blue الرسمي */
   --primary-hover: #006A93;         /* أزرق hover داكن */
-  --primary-dark: #006A93;          /* للتوافق */
-  --secondary-color: #6C757D;       /* رمادي أنيق */
+  --primary-light: #2BA6D4;         /* أزرق فاتح */
+  --primary-dark: #004B6B;          /* أزرق داكن جداً */
+  --secondary-color: #5A6268;       /* رمادي محسّن للتباين */
+  --secondary-hover: #495057;       /* رمادي hover */
+
+  /* ألوان إضافية */
+  --accent-gold: #D4A574;           /* ذهبي احترافي */
+  --accent-orange: #FD7E14;         /* برتقالي */
 
   /* الخلفيات */
   --bg-color: #F8F9FA;              /* خلفية الموقع */
@@ -22,15 +28,16 @@
   --bg-divider: #E9ECEF;            /* فواصل خفيفة */
   --bg-soft-blue: rgba(0, 141, 195, 0.05);
 
-  /* النصوص */
-  --text-color: #212529;            /* عنوان رئيسي */
-  --text-primary: #212529;
-  --primary-text: #212529;
-  --dark-color: #212529;
-  --text-normal: #495057;           /* نص عادي */
+  /* النصوص - محسّنة للتباين */
+  --text-color: #1A1D1F;            /* عنوان رئيسي (محسّن) */
+  --text-primary: #1A1D1F;
+  --primary-text: #1A1D1F;
+  --dark-color: #1A1D1F;
+  --text-normal: #464A4E;           /* نص عادي (محسّن) */
   --secondary-text: #6C757D;        /* نص ثانوي */
   --text-secondary: #6C757D;
-  --text-muted: #6C757D;
+  --text-muted: #8B92A1;            /* نص ضعيف (محسّن) */
+  --text-light: #ADB5BD;            /* نص فاتح */
 
   /* ألوان الحدود */
   --border-color: #E9ECEF;
@@ -51,12 +58,15 @@
   --sidebar-color: #6C757D;
   --accent-color: #008DC3;
 
-  /* تدرجات بسيطة */
+  /* تدرجات موحدة */
   --gradient-primary: linear-gradient(135deg, #008DC3 0%, #006A93 100%);
-  --gradient-overlay: linear-gradient(135deg, rgba(0, 141, 195, 0.05) 0%, rgba(0, 106, 147, 0.05) 100%);
-  --gradient-secondary: linear-gradient(135deg, #6C757D 0%, #5A6268 100%);
-  --gradient-soft: linear-gradient(180deg, rgba(0,141,195,0.03) 0%, rgba(0,141,195,0) 100%);
-  --gradient-card: linear-gradient(145deg, #ffffff 0%, #fafcff 100%);
+  --gradient-secondary: linear-gradient(135deg, #5A6268 0%, #464A4E 100%);
+  --gradient-soft: linear-gradient(180deg, rgba(0,141,195,0.04) 0%, rgba(0,141,195,0) 100%);
+  --gradient-overlay: linear-gradient(135deg, rgba(0, 141, 195, 0.08) 0%, rgba(0, 106, 147, 0.08) 100%);
+  --gradient-card: linear-gradient(145deg, #ffffff 0%, #f9fbfc 100%);
+  --gradient-success: linear-gradient(135deg, #28A745 0%, #1E7E34 100%);
+  --gradient-danger: linear-gradient(135deg, #DC3545 0%, #BB2D3B 100%);
+  --gradient-gold: linear-gradient(135deg, #D4A574 0%, #B8915E 100%);
 
   /* ظلال محسّنة */
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
