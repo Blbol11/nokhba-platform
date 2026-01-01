@@ -119,6 +119,27 @@ a {
   color: var(--primary-color);
 }
 
+/* ====== Accessibility - Focus States ====== */
+input:focus,
+textarea:focus,
+select:focus,
+button:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+a:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* تحسين focus للأزرار */
+button:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
 /* Container */
 .container {
   max-width: 1280px;

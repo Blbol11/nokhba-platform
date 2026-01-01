@@ -145,7 +145,7 @@ const Courses = () => {
         {/* Page Header */}
         <div className="page-header">
           <Link to="/excellence" className="back-link">
-            ← العودة إلى مبادرة التفوق المستمر
+            العودة إلى ← مبادرة التفوق المستمر
           </Link>
           <h1>الدورات التعليمية</h1>
           <p>اختر من بين مجموعة واسعة من الدورات المصممة لدعم تفوقك الأكاديمي</p>

@@ -49,7 +49,7 @@ const Research = () => {
         {/* Page Header */}
         <div className="page-header">
           <Link to="/excellence" className="back-link">
-            ← العودة إلى مبادرة التفوق المستمر
+            العودة إلى ← مبادرة التفوق المستمر
           </Link>
           <h1>دعم البحث العلمي والابتكار</h1>
           <p>نوفر لك الدعم الشامل لتحقيق أهدافك البحثية والابتكارية</p>

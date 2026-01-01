@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
 import axios from 'axios';
-import './SubPage.css';
+import './Enrichment.css';
 
 const Enrichment = () => {
   const { token } = useAuth();
@@ -60,7 +60,7 @@ const Enrichment = () => {
         {/* Page Header */}
         <div className="page-header">
           <Link to="/excellence" className="back-link">
-            ← العودة إلى مبادرة التفوق المستمر
+            العودة إلى ← مبادرة التفوق المستمر
           </Link>
           <h1>الدروس الإثرائية</h1>
           <p>محتوى إثرائي متنوع يشمل فيديوهات تعليمية، ملفات PDF، ومواد داعمة للتعلّم والتفوق</p>

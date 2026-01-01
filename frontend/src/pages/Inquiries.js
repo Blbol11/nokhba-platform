@@ -100,7 +100,7 @@ const Inquiries = () => {
         {/* Page Header */}
         <div className="page-header">
           <Link to="/excellence" className="back-link">
-            ← العودة إلى مبادرة التفوق المستمر
+            العودة إلى ← مبادرة التفوق المستمر
           </Link>
           <h1>الاستفسارات والدعم</h1>
           <p>نحن هنا للإجابة على جميع استفساراتك ومساعدتك</p>

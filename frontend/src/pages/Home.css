@@ -519,7 +519,6 @@
 
   .stat-item:last-child {
     border-bottom: none;
-    padding-bottom: 1.5rem;
   }
 
   .stat-number {
