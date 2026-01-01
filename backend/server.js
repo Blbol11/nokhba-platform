@@ -53,6 +53,11 @@ const corsOptions = {
       'https://nokhba-platform.pages.dev'
     ].filter(Boolean);
 
+    // السماح بكل نطاقات Cloudflare Pages
+    if (origin && origin.includes('nokhba-platform.pages.dev')) {
+      return callback(null, true);
+    }
+
     if (allowedOrigins.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
