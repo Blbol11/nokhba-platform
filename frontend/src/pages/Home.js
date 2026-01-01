@@ -22,32 +22,36 @@ const Home = () => {
   }, []);
 
   const fetchStats = async () => {
+    // استخدام الإحصائيات الافتراضية مباشرة
+    const targetStats = { students: 1250, files: 3400, courses: 85, hours: 12500 };
+
+    const duration = 2000;
+    const steps = 60;
+    const increment = duration / steps;
+
+    Object.keys(targetStats).forEach(key => {
+      let current = 0;
+      const target = targetStats[key];
+      const step = target / steps;
+
+      const timer = setInterval(() => {
+        current += step;
+        if (current >= target) {
+          current = target;
+          clearInterval(timer);
+        }
+        setStats(prev => ({ ...prev, [key]: Math.floor(current) }));
+      }, increment);
+    });
+
+    // محاولة جلب البيانات الحقيقية في الخلفية (اختياري)
     try {
       const response = await axios.get(`${API_URL}/api/public/stats`);
-      const targetStats = response.data.data;
-
-      const duration = 2000;
-      const steps = 60;
-      const increment = duration / steps;
-
-      Object.keys(targetStats).forEach(key => {
-        let current = 0;
-        const target = targetStats[key];
-        const step = target / steps;
-
-        const timer = setInterval(() => {
-          current += step;
-          if (current >= target) {
-            current = target;
-            clearInterval(timer);
-          }
-          setStats(prev => ({ ...prev, [key]: Math.floor(current) }));
-        }, increment);
-      });
+      if (response.data && response.data.data) {
+        setStats(response.data.data);
+      }
     } catch (error) {
-      console.error('Error fetching stats:', error);
-      const defaultStats = { students: 1250, files: 3400, courses: 85, hours: 12500 };
-      setStats(defaultStats);
+      console.log('Using default stats');
     }
   };
 
